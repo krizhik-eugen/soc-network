@@ -1,13 +1,9 @@
 import React from "react";
 
-export const Header = () => {
+export function Header() {
     return (
-        <div>
-            <a href='#s'>Home</a>
-            <a href='#s'>News feed</a>
-            <a href='#s'>Messges</a>
-        </div>
-    );
+        <header className={'header'}>
+            <img src='https://1757140519.rsc.cdn77.org/static/v3/img/products/logo.png' alt='logo'/>
+        </header>
+    )
 }
-
-export default Header;
