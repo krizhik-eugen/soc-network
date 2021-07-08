@@ -1,23 +1,17 @@
 import React from "react";
-import st from './MyPosts.module.css';
+import styles from './MyPosts.module.css';
 import {Post} from "./post/Post";
+import {PostType} from "../../../index";
 
-type PostType = {
-    id?: number
-    message: string
-    likeCount: number
+type MyPostsPropsType = {
+    posts: Array<PostType>
 }
 
-let posts: Array<PostType> = [{id: 1, message: 'Hello', likeCount: 15},
-    {id: 2, message: 'Hey', likeCount: 15},
-    {id: 3, message: 'Ho', likeCount: 15},
-    {id: 4, message: 'He-he', likeCount: 4},]
-
-
-export function MyPosts() {
+export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
+    let postsItems = props.posts.map(p => <Post message={p.message} likeCount={p.likeCount}/>)
     return (
-        <div className={st.content}>
-            <div className={st.postBlock}>
+        <div className={styles.content}>
+            <div className={styles.postBlock}>
                 <h3>My posts</h3>
                 <div>
                     <div>
@@ -27,8 +21,8 @@ export function MyPosts() {
                         <button>Add</button>
                     </div>
                 </div>
-                <div className={st.posts}>
-                    {posts.map(p => <Post message={p.message} likeCount={p.likeCount}/>)}
+                <div className={styles.posts}>
+                    {postsItems}
                 </div>
             </div>
         </div>

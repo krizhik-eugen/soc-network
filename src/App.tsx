@@ -8,17 +8,23 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {Settings} from './components/settings/Settings';
 import {Music} from "./components/music/Music";
 import {News} from './components/news/News';
+import {DialogType, MessageType, PostType} from "./index";
 
+type AppPropsType = {
+    dialogs: Array<DialogType>
+    messages: Array<MessageType>
+    posts: Array<PostType>
+}
 
-export function App() {
+export const App: React.FC<AppPropsType> = (props) => {
     return (<BrowserRouter>
             <div className={'app-wrapper'}>
                 <Header/>
                 <Navbar/>
                 <div className={'app-wrapper-content'}>
-                    <Route /*exact*/ path='/dialogs' render={() => <Dialogs/>}/>
-                    <Route /*exact*/ path='/profile' render={() => <Profile/>}/>
-                    <Route /*exact*/ path='/news' render={() => <News/>}/>
+                    <Route /*exact*/ path='/dialogs' render={() => <Dialogs dialogs={props.dialogs} messages={props.messages}/>}/>
+                    <Route /*exact*/ path='/profile' render={() => <Profile posts={props.posts}/>}/>
+                    <Route /*exact*/ path='/news' render={() => <News />}/>
                     <Route /*exact*/ path='/music' render={() => <Music/>}/>
                     <Route /*exact*/ path='/settings' render={() => <Settings/>}/>
                 </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import st from './Post.module.css';
+import styles from './Post.module.css';
 
 type PostPropsType = {
     message: string
@@ -9,8 +9,8 @@ type PostPropsType = {
 export function Post(props: PostPropsType) {
     return (
         <div>
-            <div className={st.post}>
-                <div className={st.item}>
+            <div className={styles.post}>
+                <div className={styles.item}>
                     <img
                         src='https://img.favpng.com/21/4/9/portable-network-graphics-avatar-computer-icons-image-social-media-png-favpng-r3ez8qWcYdM8jGVn2b5TGhvS8.jpg'
                         alt={'avatar'}/>
