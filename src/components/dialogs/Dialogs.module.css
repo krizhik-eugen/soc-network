@@ -10,8 +10,9 @@
 .dialogsItem .active {
     color: #4d12ff;
 }
-.dialog {
 
+.dialog {
+    display: flex;
 }
 
 .messages {
@@ -20,4 +21,9 @@
 
 .message {
 
+}
+
+.avatar img {
+    width: 50px;
+    border-radius: 20px;
 }

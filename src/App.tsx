@@ -8,25 +8,29 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {Settings} from './components/settings/Settings';
 import {Music} from "./components/music/Music";
 import {News} from './components/news/News';
-import {MainStateType} from "./redux/state";
+import {addPost, MainStateType} from "./redux/state";
+import {Friends} from "./components/friends/Friends";
 
 type AppPropsType = {
     appState: MainStateType
+    addPost: (newPostMessage: string) => void
+
 }
 
 export const App: React.FC<AppPropsType> = (props) => {
-    return (<BrowserRouter>
-            <div className={'app-wrapper'}>
-                <Header/>
-                <Navbar/>
-                <div className={'app-wrapper-content'}>
-                    <Route /*exact*/ path='/dialogs' render={() => <Dialogs dialogs={props.appState.dialogsPage}/>}/>
-                    <Route /*exact*/ path='/profile' render={() => <Profile posts={props.appState.profilePage}/>}/>
-                    <Route /*exact*/ path='/news' render={() => <News/>}/>
-                    <Route /*exact*/ path='/music' render={() => <Music/>}/>
-                    <Route /*exact*/ path='/settings' render={() => <Settings/>}/>
-                </div>
+    return (
+        <div className={'app-wrapper'}>
+            <Header/>
+            <Navbar />
+            <div className={'app-wrapper-content'}>
+                <Route /*exact*/ path='/dialogs' render={() => <Dialogs dialogs={props.appState.dialogsPage}/>}/>
+                <Route /*exact*/ path='/profile' render={() => <Profile posts={props.appState.profilePage} addPost={addPost}/>}/>
+                <Route /*exact*/ path='/news' render={() => <News/>}/>
+                <Route /*exact*/ path='/music' render={() => <Music/>}/>
+                <Route /*exact*/ path='/settings' render={() => <Settings/>}/>
+
             </div>
-        </BrowserRouter>
+            <Friends friends={props.appState.sideBar.friends}/>
+        </div>
     );
 }
