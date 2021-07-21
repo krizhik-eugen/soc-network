@@ -1,29 +1,29 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import styles from './MyPosts.module.css';
 import {Post} from "./post/Post";
-import {PostType} from "../../../redux/state";
+import {ProfilePageType} from "../../../redux/state";
 
 type MyPostsPropsType = {
-    posts: Array<PostType>
-    addPost: (newPostMessage: string) => void
+    addPost: () => void
+    profilePage: ProfilePageType
+    updateNewPostContent: (newPostContent: string) => void
 }
 
 export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
-    let postsItems = props.posts.map(p => <Post message={p.message} likeCount={p.likeCount}/>)
-    const newTextRef = React.createRef<HTMLTextAreaElement>();
+    let postsItems = props.profilePage.posts.map(p => <Post message={p.message} likeCount={p.likeCount}/>)
     const addPost = () => {
-        if (newTextRef.current) {
-            props.addPost(newTextRef.current.value)
-            newTextRef.current.value = ''
-        }
+            props.addPost()
     }
+
+    const addNewPostContent = (e: ChangeEvent<HTMLTextAreaElement>) => props.updateNewPostContent(e.currentTarget.value)
+
     return (
         <div className={styles.content}>
             <div className={styles.postBlock}>
                 <h3>My posts</h3>
                 <div>
                     <div>
-                        <textarea ref={newTextRef} placeholder={'type here'}></textarea>
+                        <textarea placeholder={'type here'} value={props.profilePage.newPostContent} onChange={addNewPostContent} />
                     </div>
                     <div>
                         <button onClick={addPost}>Add</button>

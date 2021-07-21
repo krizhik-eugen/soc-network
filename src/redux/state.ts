@@ -8,7 +8,6 @@ import lika from './avatars/lika.jpg'
 import kuka from './avatars/kuka.jpg'
 import {rerenderEntireTree} from "../render";
 
-
 export type DialogType = {
     id: string
     name: string
@@ -23,7 +22,7 @@ export type PostType = {
     message: string
     likeCount: number
 }
-export type FriendsType ={
+export type FriendsType = {
     id: number
     name: string
     ava: string
@@ -31,9 +30,11 @@ export type FriendsType ={
 export type DialogsPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
+    newMessageContent: string
 }
 export type ProfilePageType = {
     posts: Array<PostType>
+    newPostContent: string
 }
 export type SideBarType = {
     friends: Array<FriendsType>
@@ -55,13 +56,15 @@ let state: MainStateType = {
         messages: [{id: 1, message: 'Yo'},
             {id: 2, message: 'Hi'},
             {id: 3, message: 'How are you?'},
-            {id: 4, message: 'Super! Hope you too!'}]
+            {id: 4, message: 'Super! Hope you too!'}],
+        newMessageContent: ''
     },
     profilePage: {
         posts: [{id: 1, message: 'Hello', likeCount: 15},
             {id: 2, message: 'Hey', likeCount: 15},
             {id: 3, message: 'Ho', likeCount: 15},
-            {id: 4, message: 'He-he', likeCount: 4}]
+            {id: 4, message: 'He-he', likeCount: 4}],
+        newPostContent: ''
     },
     sideBar: {
         friends: [
@@ -72,9 +75,27 @@ let state: MainStateType = {
     }
 }
 
-export const addPost = (newPostMessage: string) => {
-    const newPost: PostType = {id: 5, message: newPostMessage, likeCount: 0}
-        state.profilePage.posts.push(newPost)
+export const addPost = () => {
+    const newPost: PostType = {id: 5, message: state.profilePage.newPostContent, likeCount: 0}
+    state.profilePage.posts.push(newPost)
+    state.profilePage.newPostContent = ''
+    rerenderEntireTree(state)
+}
+
+export const updateNewPostContent = (newPostContent: string) => {
+    state.profilePage.newPostContent = newPostContent
+    rerenderEntireTree(state)
+}
+
+export const addMessage = () => {
+    const newMessage: MessageType = {id: 5, message: state.dialogsPage.newMessageContent}
+    state.dialogsPage.messages.push(newMessage)
+    state.dialogsPage.newMessageContent = ''
+    rerenderEntireTree(state)
+}
+
+export const updateMessageContent = (newMessageContent: string) => {
+    state.dialogsPage.newMessageContent = newMessageContent
     rerenderEntireTree(state)
 }
 
