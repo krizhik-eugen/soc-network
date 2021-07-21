@@ -8,31 +8,33 @@ import {Route} from 'react-router-dom';
 import {Settings} from './components/settings/Settings';
 import {Music} from "./components/music/Music";
 import {News} from './components/news/News';
-import {MainStateType, updateMessageContent} from "./redux/state";
+import {StoreType} from "./redux/state";
 import {Friends} from "./components/friends/Friends";
 
 type AppPropsType = {
-    appState: MainStateType
-    addPost: () => void
-    updateNewPostContent: (newPostContent: string) => void
-    updateMessageContent: (newMessageContent: string) => void
-    addMessage: () => void
+    appState: StoreType
 }
 
+
 export const App: React.FC<AppPropsType> = (props) => {
+    const state = props.appState.getState()
     return (
         <div className={'app-wrapper'}>
             <Header/>
-            <Navbar />
+            <Navbar/>
             <div className={'app-wrapper-content'}>
-                <Route /*exact*/ path='/dialogs' render={() => <Dialogs dialogsPage={props.appState.dialogsPage} addMessage={props.addMessage} updateMessageContent={props.updateMessageContent}/>}/>
-                <Route /*exact*/ path='/profile' render={() => <Profile profilePage={props.appState.profilePage} addPost={props.addPost} updateNewPostContent={props.updateNewPostContent}/>}/>
+                <Route /*exact*/ path='/dialogs' render={() => <Dialogs dialogsPage={state.dialogsPage}
+                                                                        addMessage={props.appState.addMessage.bind(props.appState)}
+                                                                        updateMessageContent={props.appState.updateMessageContent.bind(props.appState)}/>}/>
+                <Route /*exact*/ path='/profile' render={() => <Profile profilePage={state.profilePage}
+                                                                        addPost={props.appState.addPost.bind(props.appState)}
+                                                                        updateNewPostContent={props.appState.updateNewPostContent.bind(props.appState)}/>}/>
                 <Route /*exact*/ path='/news' render={() => <News/>}/>
                 <Route /*exact*/ path='/music' render={() => <Music/>}/>
                 <Route /*exact*/ path='/settings' render={() => <Settings/>}/>
 
             </div>
-            <Friends friends={props.appState.sideBar.friends}/>
+            <Friends friends={state.sideBar.friends}/>
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, {ChangeEvent} from "react";
 import {DialogItem} from "./DialogItem/DialogItem";
 import styles from './Dialogs.module.css'
 import {Message} from "./Message/Message";
@@ -29,7 +29,8 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
                 {messagesItems}
                 <div>
                     <div>
-                        <textarea placeholder={'type here'} value={props.dialogsPage.newMessageContent} onChange={addNewMessageContent} />
+                        <textarea placeholder={'type here'} value={props.dialogsPage.newMessageContent}
+                                  onChange={addNewMessageContent}/>
                     </div>
                     <div>
                         <button onClick={addMessage}>Add</button>

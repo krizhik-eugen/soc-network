@@ -6,7 +6,12 @@ import bro from './avatars/bro.jpg'
 import john from './avatars/john.jpg'
 import lika from './avatars/lika.jpg'
 import kuka from './avatars/kuka.jpg'
-import {rerenderEntireTree} from "../render";
+
+/*
+let render = () => {
+    console.log('rendering')
+}
+*/
 
 export type DialogType = {
     id: string
@@ -39,13 +44,13 @@ export type ProfilePageType = {
 export type SideBarType = {
     friends: Array<FriendsType>
 }
-
 export type MainStateType = {
     dialogsPage: DialogsPageType
     profilePage: ProfilePageType
     sideBar: SideBarType
 }
 
+/*
 let state: MainStateType = {
     dialogsPage: {
         dialogs: [{id: '1', name: 'Dimych', avatar: dimych},
@@ -74,29 +79,103 @@ let state: MainStateType = {
         ]
     }
 }
-
-export const addPost = () => {
+*/
+/*export const addPost = () => {
     const newPost: PostType = {id: 5, message: state.profilePage.newPostContent, likeCount: 0}
     state.profilePage.posts.push(newPost)
     state.profilePage.newPostContent = ''
-    rerenderEntireTree(state)
-}
-
+    render()
+}*/
+/*
 export const updateNewPostContent = (newPostContent: string) => {
     state.profilePage.newPostContent = newPostContent
-    rerenderEntireTree(state)
+    render()
 }
-
-export const addMessage = () => {
+*/
+/*export const addMessage = () => {
     const newMessage: MessageType = {id: 5, message: state.dialogsPage.newMessageContent}
     state.dialogsPage.messages.push(newMessage)
     state.dialogsPage.newMessageContent = ''
-    rerenderEntireTree(state)
-}
+    render()
+}*/
+/*
 
 export const updateMessageContent = (newMessageContent: string) => {
     state.dialogsPage.newMessageContent = newMessageContent
-    rerenderEntireTree(state)
+    render()
+}
+*/
+/*export const subscribe = (observer: () => void) => {
+    render = observer;
+}*/
+
+export type StoreType = {
+    _state: MainStateType
+    updateNewPostContent: (newPostContent: string) => void
+    addPost: () => void
+    addMessage: () => void
+    updateMessageContent: (newPostContent: string) => void
+    _render: () => void
+    subscribe: (observer: () => void) => void
+    getState: () => MainStateType
 }
 
-export default state
+export const store: StoreType = {
+    _state: {
+        dialogsPage: {
+            dialogs: [{id: '1', name: 'Dimych', avatar: dimych},
+                {id: '2', name: 'Eugen', avatar: eugen},
+                {id: '3', name: 'Margo', avatar: margo},
+                {id: '4', name: 'Natali', avatar: natali},
+                {id: '5', name: 'Bro', avatar: bro}],
+            messages: [{id: 1, message: 'Yo'},
+                {id: 2, message: 'Hi'},
+                {id: 3, message: 'How are you?'},
+                {id: 4, message: 'Super! Hope you too!'}],
+            newMessageContent: ''
+        },
+        profilePage: {
+            posts: [{id: 1, message: 'Hello', likeCount: 15},
+                {id: 2, message: 'Hey', likeCount: 15},
+                {id: 3, message: 'Ho', likeCount: 15},
+                {id: 4, message: 'He-he', likeCount: 4}],
+            newPostContent: ''
+        },
+        sideBar: {
+            friends: [
+                {id: 1, name: 'John', ava: john},
+                {id: 2, name: 'Lika', ava: lika},
+                {id: 3, name: 'Kuka', ava: kuka},
+            ]
+        }
+    },
+    updateNewPostContent(newPostContent: string) {
+        this._state.profilePage.newPostContent = newPostContent
+        this._render()
+    },
+    addPost() {
+        const newPost = {id: 5, message: this._state.profilePage.newPostContent, likeCount: 0}
+        this._state.profilePage.posts.push(newPost)
+        this._state.profilePage.newPostContent = ''
+        this._render()
+    },
+    addMessage() {
+        const newMessage: MessageType = {id: 5, message: this._state.dialogsPage.newMessageContent}
+        this._state.dialogsPage.messages.push(newMessage)
+        this._state.dialogsPage.newMessageContent = ''
+        this._render()
+    },
+    updateMessageContent(newMessageContent: string) {
+        this._state.dialogsPage.newMessageContent = newMessageContent
+        this._render()
+    },
+    _render() {
+        console.log('state has been changed')
+    },
+    subscribe(observer: () => void) {
+        this._render = observer;
+    },
+    getState() {
+        return this._state
+    }
+}
