@@ -49,6 +49,22 @@ export type MainStateType = {
     profilePage: ProfilePageType
     sideBar: SideBarType
 }
+export type DispatchTypes = AddPostActionType | UpdateNewPostContentActionType | AddMessageActionType | UpdateMessageContentActionType
+
+type AddPostActionType = {
+    type: 'ADD-POST'
+}
+type UpdateNewPostContentActionType ={
+    type: 'UPDATE-NEW-POST-CONTENT'
+    newPostContent: string
+}
+type AddMessageActionType = {
+    type: 'ADD-MESSAGE'
+}
+type UpdateMessageContentActionType = {
+    type: 'UPDATE-NEW-MESSAGE-CONTENT'
+    newMessageContent: string
+}
 
 /*
 let state: MainStateType = {
@@ -111,13 +127,14 @@ export const updateMessageContent = (newMessageContent: string) => {
 
 export type StoreType = {
     _state: MainStateType
-    updateNewPostContent: (newPostContent: string) => void
-    addPost: () => void
-    addMessage: () => void
-    updateMessageContent: (newPostContent: string) => void
     _render: () => void
+    /*updateNewPostContent: (newPostContent: string) => void*/
+    /*addPost: () => void*/
+    /*addMessage: () => void*/
+    /*updateMessageContent: (newPostContent: string) => void*/
     subscribe: (observer: () => void) => void
     getState: () => MainStateType
+    dispatch: (action: DispatchTypes) => void
 }
 
 export const store: StoreType = {
@@ -149,33 +166,56 @@ export const store: StoreType = {
             ]
         }
     },
-    updateNewPostContent(newPostContent: string) {
-        this._state.profilePage.newPostContent = newPostContent
-        this._render()
-    },
-    addPost() {
-        const newPost = {id: 5, message: this._state.profilePage.newPostContent, likeCount: 0}
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostContent = ''
-        this._render()
-    },
-    addMessage() {
-        const newMessage: MessageType = {id: 5, message: this._state.dialogsPage.newMessageContent}
-        this._state.dialogsPage.messages.push(newMessage)
-        this._state.dialogsPage.newMessageContent = ''
-        this._render()
-    },
-    updateMessageContent(newMessageContent: string) {
-        this._state.dialogsPage.newMessageContent = newMessageContent
-        this._render()
-    },
     _render() {
         console.log('state has been changed')
     },
+
     subscribe(observer: () => void) {
         this._render = observer;
     },
     getState() {
         return this._state
+    },
+
+    // updateNewPostContent(newPostContent: string) {
+    //     this._state.profilePage.newPostContent = newPostContent
+    //     this._render()
+    // },
+    /*addPost() {
+        const newPost = {id: 5, message: this._state.profilePage.newPostContent, likeCount: 0}
+        this._state.profilePage.posts.push(newPost)
+        this._state.profilePage.newPostContent = ''
+        this._render()
+    },*/
+    // addMessage() {
+    //     const newMessage: MessageType = {id: 5, message: this._state.dialogsPage.newMessageContent}
+    //     this._state.dialogsPage.messages.push(newMessage)
+    //     this._state.dialogsPage.newMessageContent = ''
+    //     this._render()
+    // },
+    /*updateMessageContent(newMessageContent: string) {
+        this._state.dialogsPage.newMessageContent = newMessageContent
+        this._render()
+    },*/
+
+    dispatch(action) { //action - объект, должен содержать св-во type: ' ',
+        if (action.type === 'ADD-POST') {
+            const newPost: PostType = {id: 5, message: this._state.profilePage.newPostContent, likeCount: 0}
+            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.newPostContent = ''
+            this._render()
+        } else if (action.type === 'UPDATE-NEW-POST-CONTENT') {
+            this._state.profilePage.newPostContent = action.newPostContent
+            this._render()
+        } else if (action.type === 'ADD-MESSAGE') {
+            const newMessage: MessageType = {id: 5, message: this._state.dialogsPage.newMessageContent}
+            this._state.dialogsPage.messages.push(newMessage)
+            this._state.dialogsPage.newMessageContent = ''
+            this._render()
+        } else if (action.type === 'UPDATE-NEW-MESSAGE-CONTENT') {
+            this._state.dialogsPage.newMessageContent = action.newMessageContent
+            this._render()
+        }
     }
+
 }

@@ -1,21 +1,22 @@
 import React, { ChangeEvent } from "react";
 import styles from './MyPosts.module.css';
 import {Post} from "./post/Post";
-import {ProfilePageType} from "../../../redux/state";
+import {DispatchTypes, ProfilePageType} from "../../../redux/state";
 
 type MyPostsPropsType = {
-    addPost: () => void
+    /*addPost: () => void*/
     profilePage: ProfilePageType
-    updateNewPostContent: (newPostContent: string) => void
+    /*updateNewPostContent: (newPostContent: string) => void*/
+    dispatch: (action: DispatchTypes) => void
 }
 
 export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     let postsItems = props.profilePage.posts.map(p => <Post message={p.message} likeCount={p.likeCount}/>)
     const addPost = () => {
-            props.addPost()
+            props.dispatch({type: "ADD-POST"})
     }
 
-    const addNewPostContent = (e: ChangeEvent<HTMLTextAreaElement>) => props.updateNewPostContent(e.currentTarget.value)
+    const addNewPostContent = (e: ChangeEvent<HTMLTextAreaElement>) => props.dispatch({type: "UPDATE-NEW-POST-CONTENT", newPostContent: e.currentTarget.value})
 
     return (
         <div className={styles.content}>

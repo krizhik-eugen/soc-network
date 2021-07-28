@@ -24,11 +24,9 @@ export const App: React.FC<AppPropsType> = (props) => {
             <Navbar/>
             <div className={'app-wrapper-content'}>
                 <Route /*exact*/ path='/dialogs' render={() => <Dialogs dialogsPage={state.dialogsPage}
-                                                                        addMessage={props.appState.addMessage.bind(props.appState)}
-                                                                        updateMessageContent={props.appState.updateMessageContent.bind(props.appState)}/>}/>
+                                                                        dispatch={props.appState.dispatch.bind(props.appState)}/>}/>
                 <Route /*exact*/ path='/profile' render={() => <Profile profilePage={state.profilePage}
-                                                                        addPost={props.appState.addPost.bind(props.appState)}
-                                                                        updateNewPostContent={props.appState.updateNewPostContent.bind(props.appState)}/>}/>
+                                                                        dispatch={props.appState.dispatch.bind(props.appState)}/>}/>
                 <Route /*exact*/ path='/news' render={() => <News/>}/>
                 <Route /*exact*/ path='/music' render={() => <Music/>}/>
                 <Route /*exact*/ path='/settings' render={() => <Settings/>}/>
