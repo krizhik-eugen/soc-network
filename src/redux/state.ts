@@ -6,12 +6,9 @@ import bro from './avatars/bro.jpg'
 import john from './avatars/john.jpg'
 import lika from './avatars/lika.jpg'
 import kuka from './avatars/kuka.jpg'
-
-/*
-let render = () => {
-    console.log('rendering')
-}
-*/
+import profileReducer, {addNewPostContentAC, addPostAC} from "./profileReducer";
+import dialogsReducer, {addMessageAC, addNewMessageContentAC} from "./dialogsReducer";
+import sideBarReducer from "./sideBarReducer";
 
 export type DialogType = {
     id: string
@@ -49,89 +46,19 @@ export type MainStateType = {
     profilePage: ProfilePageType
     sideBar: SideBarType
 }
-export type DispatchTypes = AddPostActionType | UpdateNewPostContentActionType | AddMessageActionType | UpdateMessageContentActionType
+export type DispatchTypes =
+    AddPostActionType
+    | UpdateNewPostContentActionType
+    | AddMessageActionType
+    | UpdateMessageContentActionType
 
-type AddPostActionType = {
-    type: 'ADD-POST'
-}
-type UpdateNewPostContentActionType ={
-    type: 'UPDATE-NEW-POST-CONTENT'
-    newPostContent: string
-}
-type AddMessageActionType = {
-    type: 'ADD-MESSAGE'
-}
-type UpdateMessageContentActionType = {
-    type: 'UPDATE-NEW-MESSAGE-CONTENT'
-    newMessageContent: string
-}
-
-/*
-let state: MainStateType = {
-    dialogsPage: {
-        dialogs: [{id: '1', name: 'Dimych', avatar: dimych},
-            {id: '2', name: 'Eugen', avatar: eugen},
-            {id: '3', name: 'Margo', avatar: margo},
-            {id: '4', name: 'Natali', avatar: natali},
-            {id: '5', name: 'Bro', avatar: bro}],
-        messages: [{id: 1, message: 'Yo'},
-            {id: 2, message: 'Hi'},
-            {id: 3, message: 'How are you?'},
-            {id: 4, message: 'Super! Hope you too!'}],
-        newMessageContent: ''
-    },
-    profilePage: {
-        posts: [{id: 1, message: 'Hello', likeCount: 15},
-            {id: 2, message: 'Hey', likeCount: 15},
-            {id: 3, message: 'Ho', likeCount: 15},
-            {id: 4, message: 'He-he', likeCount: 4}],
-        newPostContent: ''
-    },
-    sideBar: {
-        friends: [
-            {id: 1, name: 'John', ava: john},
-            {id: 2, name: 'Lika', ava: lika},
-            {id: 3, name: 'Kuka', ava: kuka},
-        ]
-    }
-}
-*/
-/*export const addPost = () => {
-    const newPost: PostType = {id: 5, message: state.profilePage.newPostContent, likeCount: 0}
-    state.profilePage.posts.push(newPost)
-    state.profilePage.newPostContent = ''
-    render()
-}*/
-/*
-export const updateNewPostContent = (newPostContent: string) => {
-    state.profilePage.newPostContent = newPostContent
-    render()
-}
-*/
-/*export const addMessage = () => {
-    const newMessage: MessageType = {id: 5, message: state.dialogsPage.newMessageContent}
-    state.dialogsPage.messages.push(newMessage)
-    state.dialogsPage.newMessageContent = ''
-    render()
-}*/
-/*
-
-export const updateMessageContent = (newMessageContent: string) => {
-    state.dialogsPage.newMessageContent = newMessageContent
-    render()
-}
-*/
-/*export const subscribe = (observer: () => void) => {
-    render = observer;
-}*/
-
+export type AddPostActionType = ReturnType<typeof addPostAC>
+export type UpdateNewPostContentActionType = ReturnType<typeof addNewPostContentAC>
+export type AddMessageActionType = ReturnType<typeof addMessageAC>
+export type UpdateMessageContentActionType = ReturnType<typeof addNewMessageContentAC>
 export type StoreType = {
     _state: MainStateType
-    _render: () => void
-    /*updateNewPostContent: (newPostContent: string) => void*/
-    /*addPost: () => void*/
-    /*addMessage: () => void*/
-    /*updateMessageContent: (newPostContent: string) => void*/
+    _callSubscriber: () => void
     subscribe: (observer: () => void) => void
     getState: () => MainStateType
     dispatch: (action: DispatchTypes) => void
@@ -166,56 +93,19 @@ export const store: StoreType = {
             ]
         }
     },
-    _render() {
+    _callSubscriber() {
         console.log('state has been changed')
     },
-
     subscribe(observer: () => void) {
-        this._render = observer;
+        this._callSubscriber = observer;
     },
     getState() {
         return this._state
     },
-
-    // updateNewPostContent(newPostContent: string) {
-    //     this._state.profilePage.newPostContent = newPostContent
-    //     this._render()
-    // },
-    /*addPost() {
-        const newPost = {id: 5, message: this._state.profilePage.newPostContent, likeCount: 0}
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostContent = ''
-        this._render()
-    },*/
-    // addMessage() {
-    //     const newMessage: MessageType = {id: 5, message: this._state.dialogsPage.newMessageContent}
-    //     this._state.dialogsPage.messages.push(newMessage)
-    //     this._state.dialogsPage.newMessageContent = ''
-    //     this._render()
-    // },
-    /*updateMessageContent(newMessageContent: string) {
-        this._state.dialogsPage.newMessageContent = newMessageContent
-        this._render()
-    },*/
-
     dispatch(action) { //action - объект, должен содержать св-во type: ' ',
-        if (action.type === 'ADD-POST') {
-            const newPost: PostType = {id: 5, message: this._state.profilePage.newPostContent, likeCount: 0}
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newPostContent = ''
-            this._render()
-        } else if (action.type === 'UPDATE-NEW-POST-CONTENT') {
-            this._state.profilePage.newPostContent = action.newPostContent
-            this._render()
-        } else if (action.type === 'ADD-MESSAGE') {
-            const newMessage: MessageType = {id: 5, message: this._state.dialogsPage.newMessageContent}
-            this._state.dialogsPage.messages.push(newMessage)
-            this._state.dialogsPage.newMessageContent = ''
-            this._render()
-        } else if (action.type === 'UPDATE-NEW-MESSAGE-CONTENT') {
-            this._state.dialogsPage.newMessageContent = action.newMessageContent
-            this._render()
-        }
+        profileReducer(this._state.profilePage, action)
+        dialogsReducer(this._state.dialogsPage, action)
+        sideBarReducer(this._state.sideBar, action)
+        this._callSubscriber()
     }
-
 }

@@ -1,22 +1,22 @@
-import React, { ChangeEvent } from "react";
+import React, {ChangeEvent} from "react";
 import styles from './MyPosts.module.css';
 import {Post} from "./post/Post";
 import {DispatchTypes, ProfilePageType} from "../../../redux/state";
+import {addNewPostContentAC, addPostAC} from "../../../redux/profileReducer";
 
 type MyPostsPropsType = {
-    /*addPost: () => void*/
     profilePage: ProfilePageType
-    /*updateNewPostContent: (newPostContent: string) => void*/
     dispatch: (action: DispatchTypes) => void
 }
+
 
 export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     let postsItems = props.profilePage.posts.map(p => <Post message={p.message} likeCount={p.likeCount}/>)
     const addPost = () => {
-            props.dispatch({type: "ADD-POST"})
+        props.dispatch(addPostAC())
     }
 
-    const addNewPostContent = (e: ChangeEvent<HTMLTextAreaElement>) => props.dispatch({type: "UPDATE-NEW-POST-CONTENT", newPostContent: e.currentTarget.value})
+    const addNewPostContent = (e: ChangeEvent<HTMLTextAreaElement>) => props.dispatch(addNewPostContentAC(e.currentTarget.value))
 
     return (
         <div className={styles.content}>
@@ -24,7 +24,8 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
                 <h3>My posts</h3>
                 <div>
                     <div>
-                        <textarea placeholder={'type here'} value={props.profilePage.newPostContent} onChange={addNewPostContent} />
+                        <textarea placeholder={'type here'} value={props.profilePage.newPostContent}
+                                  onChange={addNewPostContent}/>
                     </div>
                     <div>
                         <button onClick={addPost}>Add</button>
