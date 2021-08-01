@@ -47,15 +47,15 @@ export type MainStateType = {
     sideBar: SideBarType
 }
 export type DispatchTypes =
-    AddPostActionType
-    | UpdateNewPostContentActionType
-    | AddMessageActionType
-    | UpdateMessageContentActionType
+    ReturnType<typeof addPostAC>
+    | ReturnType<typeof addNewPostContentAC>
+    | ReturnType<typeof addMessageAC>
+    | ReturnType<typeof addNewMessageContentAC>
 
-export type AddPostActionType = ReturnType<typeof addPostAC>
+/*export type AddPostActionType = ReturnType<typeof addPostAC>
 export type UpdateNewPostContentActionType = ReturnType<typeof addNewPostContentAC>
 export type AddMessageActionType = ReturnType<typeof addMessageAC>
-export type UpdateMessageContentActionType = ReturnType<typeof addNewMessageContentAC>
+export type UpdateMessageContentActionType = ReturnType<typeof addNewMessageContentAC>*/
 export type StoreType = {
     _state: MainStateType
     _callSubscriber: () => void
