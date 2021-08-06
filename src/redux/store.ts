@@ -51,11 +51,6 @@ export type DispatchTypes =
     | ReturnType<typeof addNewPostContentAC>
     | ReturnType<typeof addMessageAC>
     | ReturnType<typeof addNewMessageContentAC>
-
-/*export type AddPostActionType = ReturnType<typeof addPostAC>
-export type UpdateNewPostContentActionType = ReturnType<typeof addNewPostContentAC>
-export type AddMessageActionType = ReturnType<typeof addMessageAC>
-export type UpdateMessageContentActionType = ReturnType<typeof addNewMessageContentAC>*/
 export type StoreType = {
     _state: MainStateType
     _callSubscriber: () => void
@@ -63,6 +58,14 @@ export type StoreType = {
     getState: () => MainStateType
     dispatch: (action: DispatchTypes) => void
 }
+
+/*export type AddPostActionType = ReturnType<typeof addPostAC>
+export type UpdateNewPostContentActionType = ReturnType<typeof addNewPostContentAC>
+export type AddMessageActionType = ReturnType<typeof addMessageAC>
+export type UpdateMessageContentActionType = ReturnType<typeof addNewMessageContentAC>*/
+
+
+/*
 
 export const store: StoreType = {
     _state: {
@@ -103,9 +106,9 @@ export const store: StoreType = {
         return this._state
     },
     dispatch(action) { //action - объект, должен содержать св-во type: ' ',
-        profileReducer(this._state.profilePage, action)
-        dialogsReducer(this._state.dialogsPage, action)
-        sideBarReducer(this._state.sideBar, action)
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sideBar = sideBarReducer(this._state.sideBar, action)
         this._callSubscriber()
     }
-}
+}*/
