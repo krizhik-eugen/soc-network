@@ -1,7 +1,8 @@
-import {DispatchTypes, SideBarType} from "./store";
+import {DispatchTypes, SideBarType } from "./redux-store";
 import john from "./avatars/john.jpg";
 import lika from "./avatars/lika.jpg";
 import kuka from "./avatars/kuka.jpg";
+
 
 let initialState = {
     friends: [

@@ -1,4 +1,4 @@
-import {DispatchTypes, PostType, ProfilePageType} from "./store";
+import {DispatchTypes, PostType, ProfilePageType} from "./redux-store";
 
 const add_post = "ADD-POST"
 const add_new_post_content = "UPDATE-NEW-POST-CONTENT"

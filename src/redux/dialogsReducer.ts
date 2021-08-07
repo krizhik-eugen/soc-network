@@ -1,4 +1,4 @@
-import {DialogsPageType, DispatchTypes, MessageType,} from "./store";
+import {DialogsPageType, DispatchTypes, MessageType,} from "./redux-store";
 import dimych from "./avatars/dimych.jpg";
 import eugen from "./avatars/eugen.jpeg";
 import margo from "./avatars/margo.jpg";
