@@ -2,19 +2,11 @@ import React, {ChangeEvent} from "react";
 import {DialogItem} from "./DialogItem/DialogItem";
 import styles from './Dialogs.module.css'
 import {Message} from "./Message/Message";
-import {DialogType, MessageType} from "../../redux/redux-store";
+import {DialogsPropsType} from "./DialogsContainer";
 
-type DialogsPropsType = {
-    addMessage: () => void
-    addNewMessageContent: (text: string) => void
-    dialogs: Array<DialogType>
-    messages: Array<MessageType>
-    newMessageContent: string
-}
-
-export const Dialogs: React.FC<DialogsPropsType> = (props) => {
-    let dialogsItems = props.dialogs.map(d => <DialogItem id={d.id} name={d.name} avatar={d.avatar}/>)
-    let messagesItems = props.messages.map(m => <Message message={m.message}/>)
+export const Dialogs = (props: DialogsPropsType) => {
+    let dialogsItems = props.dialogs.map(d => <DialogItem key={d.id} id={d.id} name={d.name} avatar={d.avatar}/>)
+    let messagesItems = props.messages.map(m => <Message key={m.id} message={m.message}/>)
 
     const addMessage = () => props.addMessage()
     const addNewMessageContent = (e: ChangeEvent<HTMLTextAreaElement>) => props.addNewMessageContent(e.currentTarget.value)

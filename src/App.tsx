@@ -7,8 +7,8 @@ import {Route} from 'react-router-dom';
 import {Settings} from './components/settings/Settings';
 import {Music} from "./components/music/Music";
 import {News} from './components/news/News';
-import {Friends} from "./components/friends/Friends";
 import { DialogsContainer } from './components/dialogs/DialogsContainer';
+import { FriendsContainer } from './components/friends/FriendsContainer';
 
 export const App = () => {
     return (
@@ -23,7 +23,7 @@ export const App = () => {
                 <Route /*exact*/ path='/settings' render={() => <Settings/>}/>
 
             </div>
-            <Friends />
+            <FriendsContainer />
         </div>
     );
 }

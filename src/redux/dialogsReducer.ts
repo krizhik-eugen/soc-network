@@ -1,18 +1,33 @@
-import {DialogsPageType, DispatchTypes, MessageType,} from "./redux-store";
+import {DispatchTypes} from "./redux-store";
 import dimych from "./avatars/dimych.jpg";
 import eugen from "./avatars/eugen.jpeg";
 import margo from "./avatars/margo.jpg";
 import natali from "./avatars/natali.jpg";
 import bro from "./avatars/bro.jpg";
 
-const add_message = "ADD-MESSAGE"
-const update_new_message_content = "UPDATE-NEW-MESSAGE-CONTENT"
+export type DialogType = {
+    id: string
+    name: string
+    avatar?: string
+}
+export type DialogsPageType = {
+    dialogs: Array<DialogType>
+    messages: Array<MessageType>
+    newMessageContent: string
+}
+export type MessageType = {
+    id: number
+    message: string
+}
 
-export const addMessageAC = () => ({type: add_message}) as const
+const ADD_MESSAGE = "ADD-MESSAGE"
+const UPDATE_NEW_MESSAGE_CONTENT = "UPDATE-NEW-MESSAGE-CONTENT"
+
+export const addMessageAC = () => ({type: ADD_MESSAGE}) as const
 export const addNewMessageContentAC = (newMessageContent: string) =>
-    ({type: update_new_message_content, newMessageContent: newMessageContent}) as const
+    ({type: UPDATE_NEW_MESSAGE_CONTENT, newMessageContent: newMessageContent}) as const
 
-let initialState = {
+let initialState: DialogsPageType = {
     dialogs: [{id: '1', name: 'Dimych', avatar: dimych},
         {id: '2', name: 'Eugen', avatar: eugen},
         {id: '3', name: 'Margo', avatar: margo},
@@ -25,17 +40,20 @@ let initialState = {
     newMessageContent: ''
 }
 
-const dialogsReducer = (state: DialogsPageType = initialState, action: DispatchTypes) => {
+const dialogsReducer = (state: DialogsPageType = initialState, action: DispatchTypes): DialogsPageType => {
     switch (action.type) {
 
-        case add_message:
-            const newMessage: MessageType = {id: 5, message: state.newMessageContent}
-            state.messages.push(newMessage)
-            state.newMessageContent = ''
-            return state;
-        case update_new_message_content:
-            state.newMessageContent = action.newMessageContent
-            return state;
+        case ADD_MESSAGE:
+            return {
+                ...state,
+                messages: [...state.messages, {id: 5, message: state.newMessageContent}],
+                newMessageContent: ''
+            };
+        case UPDATE_NEW_MESSAGE_CONTENT:
+            return {
+                ...state,
+                newMessageContent: action.newMessageContent
+            };
         default:
             return state
     }

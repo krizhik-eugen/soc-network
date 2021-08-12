@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './Post.module.css';
-import {PostType} from "../../../../redux/redux-store";
+import {PostType} from "../../../../redux/profileReducer";
 
 type PostPropsType = PostType
 
