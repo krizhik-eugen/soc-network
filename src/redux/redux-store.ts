@@ -2,6 +2,7 @@ import {combineReducers, createStore} from "redux";
 import profileReducer, {addNewPostContentAC, addPostAC, ProfilePageType} from "./profileReducer";
 import dialogsReducer, {addMessageAC, addNewMessageContentAC, DialogsPageType} from "./dialogsReducer";
 import sideBarReducer, {SideBarType} from "./sideBarReducer";
+import usersReducer, {followAC, setUsersAC, unfollowAC} from "./usersReducer";
 
 /*export type MainStateType = {
     dialogsPage: DialogsPageType
@@ -13,6 +14,10 @@ export type DispatchTypes =
     | ReturnType<typeof addNewPostContentAC>
     | ReturnType<typeof addMessageAC>
     | ReturnType<typeof addNewMessageContentAC>
+    | ReturnType<typeof followAC>
+    | ReturnType<typeof unfollowAC>
+    | ReturnType<typeof setUsersAC>
+
 
 /*export type StoreType = {
     _state: MainStateType
@@ -26,7 +31,8 @@ export const rootReducer = combineReducers(
     {
         profilePage: profileReducer,
         dialogsPage: dialogsReducer,
-        sideBar: sideBarReducer
+        sideBar: sideBarReducer,
+        usersPage: usersReducer
     }
 );
 

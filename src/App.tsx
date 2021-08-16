@@ -9,6 +9,7 @@ import {Music} from "./components/music/Music";
 import {News} from './components/news/News';
 import { DialogsContainer } from './components/dialogs/DialogsContainer';
 import { FriendsContainer } from './components/friends/FriendsContainer';
+import { UsersContainer } from './components/users/UsersContainer';
 
 export const App = () => {
     return (
@@ -21,7 +22,7 @@ export const App = () => {
                 <Route /*exact*/ path='/news' render={() => <News/>}/>
                 <Route /*exact*/ path='/music' render={() => <Music/>}/>
                 <Route /*exact*/ path='/settings' render={() => <Settings/>}/>
-
+                <Route /*exact*/ path='/users' render={() => <UsersContainer/>}/>
             </div>
             <FriendsContainer />
         </div>
