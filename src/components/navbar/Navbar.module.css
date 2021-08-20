@@ -1,12 +1,19 @@
 .nav {
+    margin: 5px;
     grid-area: n;
     background-color: #0cdfff;
     padding: 30px;
+    border-radius: 10px;
+}
+
+.item {
+    padding: 5px;
 }
 
 .item a {
-    color: white;
+    color: #05a9ca;
     text-decoration: none;
+
 }
 
 .item a.active {

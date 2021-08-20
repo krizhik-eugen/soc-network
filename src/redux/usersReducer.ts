@@ -6,9 +6,10 @@ export type LocationType = {
 }
 export type UserType = {
     id: number
-    photoURL: string
-    fullName: string
-    status: string
+    photos: { small: string | null, large: string | null }
+    uniqueUrlName: string | null
+    name: string
+    status: string | null
     location: LocationType
     followed: boolean
 }
@@ -25,7 +26,7 @@ export const unfollowAC = (userID: number) => ({type: UNFOLLOW, userID}) as cons
 export const setUsersAC = (users: Array<UserType>) => ({type: SET_USERS, users}) as const
 
 let initialState: UsersPageType = {
-    users: [
+    users: [] /* [
         {
             id: 1,
             photoURL: 'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg',
@@ -50,7 +51,7 @@ let initialState: UsersPageType = {
             status: "i'm a boss too",
             location: {city: 'Kiev', country: 'Ukraine'}
         }
-    ],
+    ],*/
 }
 
 const usersReducer = (state: UsersPageType = initialState, action: DispatchTypes): UsersPageType => {
