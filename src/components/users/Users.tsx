@@ -12,20 +12,26 @@ type UsersResponseType = {
 }
 
 export const Users = (props: UsersPagePropsType) => {
-    if (props.users.length === 0) {
+    let getUsers = () => {
+        if (props.users.length === 0) {
 
-        axios.get<UsersResponseType>("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-            props.setUsers(response.data.items)
-        });
+            axios.get<UsersResponseType>("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+                props.setUsers(response.data.items)
+            });
 
+        }
     }
+
+
     return (
         <div className={''}>
+            <button onClick={getUsers}>get users</button>
             {props.users.map(u => <div className={styles.user} key={u.id}>
                         <span>
                             <div>
-                                <img src={u.photos.large ? u.photos.large : u.photos.small ? u.photos.small : defaultAva}
-                                     className={styles.usersPhoto}/>
+                                <img
+                                    src={u.photos.large ? u.photos.large : u.photos.small ? u.photos.small : defaultAva}
+                                    className={styles.usersPhoto}/>
                             </div>
                             <div>
                                 {u.followed ? <button onClick={() => {
