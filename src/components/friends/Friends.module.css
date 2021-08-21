@@ -1,6 +1,7 @@
 .friends_wrapper {
-
+    margin: 5px;
 }
+
 .ava {
     display: inline-flex;
 }

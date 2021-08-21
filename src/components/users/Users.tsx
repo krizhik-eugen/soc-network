@@ -11,38 +11,33 @@ type UsersResponseType = {
     error: string | null
 }
 
-export const Users = (props: UsersPagePropsType) => {
-    let getUsers = () => {
-        if (props.users.length === 0) {
+class Users extends React.Component <UsersPagePropsType> {
+    componentDidMount() {
+        axios.get<UsersResponseType>("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            this.props.setUsers(response.data.items)
+        })
+    };
 
-            axios.get<UsersResponseType>("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-                props.setUsers(response.data.items)
-            });
-
-        }
-    }
-
-
-    return (
-        <div className={''}>
-            <button onClick={getUsers}>get users</button>
-            {props.users.map(u => <div className={styles.user} key={u.id}>
+    render() {
+        return (
+            <div className={''}>
+                {this.props.users.map(u => <div className={styles.user} key={u.id}>
                         <span>
                             <div>
-                                <img
-                                    src={u.photos.large ? u.photos.large : u.photos.small ? u.photos.small : defaultAva}
-                                    className={styles.usersPhoto}/>
+                                <img alt={'user photo'}
+                                     src={u.photos.large ? u.photos.large : u.photos.small ? u.photos.small : defaultAva}
+                                     className={styles.usersPhoto}/>
                             </div>
                             <div>
                                 {u.followed ? <button onClick={() => {
-                                        props.unfollow(u.id)
+                                        this.props.unfollow(u.id)
                                     }}>Unfollow</button> :
                                     <button onClick={() => {
-                                        props.follow(u.id)
+                                        this.props.follow(u.id)
                                     }}>Follow</button>}
                             </div>
                         </span>
-                <span>
+                    <span>
                     <span>
                         <div>{u.name}</div>
                         <div>{u.status}</div>
@@ -52,7 +47,12 @@ export const Users = (props: UsersPagePropsType) => {
                         <div>{'u.location.city'}</div>
                     </span>
                 </span>
-            </div>)
-            }
-        </div>)
+                </div>)
+                }
+            </div>
+        )
+    }
+
 }
+
+export default Users

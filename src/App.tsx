@@ -19,6 +19,7 @@ export const App = () => {
             <div className={'app-wrapper-content'}>
                 <Route /*exact*/ path='/dialogs' render={() => <DialogsContainer/>}/>
                 <Route /*exact*/ path='/profile' render={() => <Profile/>}/>
+                <Route /*exact*/ path='/users' render={() => <UsersContainer/>}/>
                 <Route /*exact*/ path='/news' render={() => <News/>}/>
                 <Route /*exact*/ path='/music' render={() => <Music/>}/>
                 <Route /*exact*/ path='/settings' render={() => <Settings/>}/>
