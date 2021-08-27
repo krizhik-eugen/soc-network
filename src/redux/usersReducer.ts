@@ -15,46 +15,31 @@ export type UserType = {
 }
 export type UsersPageType = {
     users: Array<UserType>
+    pageSize: number
+    usersTotalCount: number
+    currentPage: number
 }
 
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = "SET-USERS"
+const SET_CURRENT_PAGE = "SET_CURRENT-PAGE"
+const SET_USERS_TOTAL_COUNT = "SET_USERS_TOTAL_COUNT"
 
 export const followAC = (userID: number) => ({type: FOLLOW, userID}) as const
 export const unfollowAC = (userID: number) => ({type: UNFOLLOW, userID}) as const
 export const setUsersAC = (users: Array<UserType>) => ({type: SET_USERS, users}) as const
+export const setCurrentPageAC = (page: number) => ({type: SET_CURRENT_PAGE, page}) as const
+export const setUsersTotalCountAC = (count: number) => ({type: SET_USERS_TOTAL_COUNT, count}) as const
 
 let initialState: UsersPageType = {
-    users: [] /* [
-        {
-            id: 1,
-            photoURL: 'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg',
-            followed: false,
-            fullName: 'Eugen',
-            status: "i'm a boss",
-            location: {city: 'Zaslavl', country: 'Belarus'}
-        },
-        {
-            id: 2,
-            photoURL: 'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg',
-            followed: true,
-            fullName: 'Dmitry',
-            status: "i'm a boss too",
-            location: {city: 'Minsk', country: 'Belarus'}
-        },
-        {
-            id: 3,
-            photoURL: 'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg',
-            followed: true,
-            fullName: 'Andrew',
-            status: "i'm a boss too",
-            location: {city: 'Kiev', country: 'Ukraine'}
-        }
-    ],*/
+    users: [],
+    pageSize: 10,
+    usersTotalCount: 0,
+    currentPage: 1
 }
 
-const usersReducer = (state: UsersPageType = initialState, action: DispatchTypes): UsersPageType => {
+const usersReducer = (state = initialState, action: DispatchTypes): UsersPageType => {
     switch (action.type) {
         case FOLLOW:
             return {
@@ -66,7 +51,15 @@ const usersReducer = (state: UsersPageType = initialState, action: DispatchTypes
             }
         case SET_USERS:
             return {
-                ...state, users: [...state.users, ...action.users]
+                ...state, users: action.users
+            }
+        case SET_CURRENT_PAGE:
+            return {
+                ...state, currentPage: action.page
+            }
+        case SET_USERS_TOTAL_COUNT:
+            return {
+                ...state, usersTotalCount: action.count
             }
         default:
             return state
