@@ -2,7 +2,13 @@ import {combineReducers, createStore} from "redux";
 import profileReducer, {addNewPostContentAC, addPostAC, ProfilePageType} from "./profileReducer";
 import dialogsReducer, {addMessageAC, addNewMessageContentAC, DialogsPageType} from "./dialogsReducer";
 import sideBarReducer, {SideBarType} from "./sideBarReducer";
-import usersReducer, {followAC, setCurrentPageAC, setUsersAC, setUsersTotalCountAC, unfollowAC} from "./usersReducer";
+import usersReducer, {
+    follow,
+    setCurrentPage,
+    setFetching, setUsers,
+    setUsersTotalCount,
+    unfollow
+} from "./usersReducer";
 
 /*export type MainStateType = {
     dialogsPage: DialogsPageType
@@ -14,11 +20,13 @@ export type DispatchTypes =
     | ReturnType<typeof addNewPostContentAC>
     | ReturnType<typeof addMessageAC>
     | ReturnType<typeof addNewMessageContentAC>
-    | ReturnType<typeof followAC>
-    | ReturnType<typeof unfollowAC>
-    | ReturnType<typeof setUsersAC>
-    | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof setUsersTotalCountAC>
+    | ReturnType<typeof follow>
+    | ReturnType<typeof unfollow>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setUsersTotalCount>
+    | ReturnType<typeof setFetching>
+
 
 
 /*export type StoreType = {

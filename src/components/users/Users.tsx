@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 import styles from './Users.module.css';
 import defaultAva from '../../assets/defaultAva.png'
-import {UserType} from "../../redux/usersReducer";
+import {UserType} from '../../redux/usersReducer';
 
 type UserPropsType = {
     usersTotalCount: number
@@ -24,7 +24,7 @@ export const Users = (props: UserPropsType) => {
         <div className={''}>
             <div className={styles.pages}>
                 {pages.map(p => <span
-                    className={(props.currentPage === p) ? styles.selectedPage : ""}
+                    className={(props.currentPage === p) ? styles.selectedPage : ''}
                     onClick={() => {
                         props.onChangePageHandler(p)
                     }}>{p}</span>)}

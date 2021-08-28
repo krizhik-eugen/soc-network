@@ -1,4 +1,4 @@
-import {DispatchTypes} from "./redux-store";
+import {DispatchTypes} from './redux-store';
 
 export type LocationType = {
     city: string
@@ -18,25 +18,29 @@ export type UsersPageType = {
     pageSize: number
     usersTotalCount: number
     currentPage: number
+    isFetching: boolean
 }
 
-const FOLLOW = "FOLLOW"
-const UNFOLLOW = "UNFOLLOW"
-const SET_USERS = "SET-USERS"
-const SET_CURRENT_PAGE = "SET_CURRENT-PAGE"
-const SET_USERS_TOTAL_COUNT = "SET_USERS_TOTAL_COUNT"
+const FOLLOW = 'FOLLOW'
+const UNFOLLOW = 'UNFOLLOW'
+const SET_USERS = 'SET-USERS'
+const SET_CURRENT_PAGE = 'SET_CURRENT-PAGE'
+const SET_USERS_TOTAL_COUNT = 'SET_USERS_TOTAL_COUNT'
+const SET_FETCHING = 'SET_FETCHING'
 
-export const followAC = (userID: number) => ({type: FOLLOW, userID}) as const
-export const unfollowAC = (userID: number) => ({type: UNFOLLOW, userID}) as const
-export const setUsersAC = (users: Array<UserType>) => ({type: SET_USERS, users}) as const
-export const setCurrentPageAC = (page: number) => ({type: SET_CURRENT_PAGE, page}) as const
-export const setUsersTotalCountAC = (count: number) => ({type: SET_USERS_TOTAL_COUNT, count}) as const
+export const follow = (userID: number) => ({type: FOLLOW, userID}) as const
+export const unfollow = (userID: number) => ({type: UNFOLLOW, userID}) as const
+export const setUsers = (users: Array<UserType>) => ({type: SET_USERS, users}) as const
+export const setCurrentPage = (page: number) => ({type: SET_CURRENT_PAGE, page}) as const
+export const setUsersTotalCount = (count: number) => ({type: SET_USERS_TOTAL_COUNT, count}) as const
+export const setFetching = (isFetching: boolean) => ({type: SET_FETCHING, isFetching}) as const
 
 let initialState: UsersPageType = {
     users: [],
     pageSize: 10,
     usersTotalCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: false
 }
 
 const usersReducer = (state = initialState, action: DispatchTypes): UsersPageType => {
@@ -60,6 +64,10 @@ const usersReducer = (state = initialState, action: DispatchTypes): UsersPageTyp
         case SET_USERS_TOTAL_COUNT:
             return {
                 ...state, usersTotalCount: action.count
+            }
+        case SET_FETCHING:
+            return {
+                ...state, isFetching: action.isFetching
             }
         default:
             return state
