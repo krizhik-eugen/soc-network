@@ -7,7 +7,6 @@ import {
     setUsersTotalCount, unfollow,
     UserType
 } from '../../redux/usersReducer';
-import {Dispatch} from 'redux';
 import {AppStateType} from '../../redux/redux-store';
 import axios from 'axios';
 import {Users} from './Users';
@@ -103,9 +102,11 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }*/
 
-export default connect(mapStateToProps, {follow,
+export default connect(mapStateToProps, {
+    follow,
     unfollow,
     setUsers,
     setCurrentPage,
     setUsersTotalCount,
-    setFetching})(UsersContainer);
+    setFetching
+})(UsersContainer);
