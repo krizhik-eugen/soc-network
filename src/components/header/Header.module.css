@@ -8,3 +8,12 @@
 .header img {
     width: 80px;
 }
+
+.loginBlock {
+    margin: 10px;
+    float: right;
+}
+
+.loginBlock a {
+    color: white;
+}

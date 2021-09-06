@@ -18,7 +18,7 @@ type UsersResponseType = {
     error: string | null
 }
 
-class UsersContainer extends React.Component <UsersPagePropsType> {
+class UsersContainer extends React.Component<UsersPagePropsType> {
     componentDidMount() {
         this.props.setFetching(true)
         axios.get<UsersResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
@@ -38,11 +38,11 @@ class UsersContainer extends React.Component <UsersPagePropsType> {
     }
 
     render() {
-        let pagesCount = Math.ceil(this.props.usersTotalCount / this.props.pageSize);
-        let pages = [];
-        for (let i = 1; i <= pagesCount; i++) {
-            pages.push(i)
-        }
+        // let pagesCount = Math.ceil(this.props.usersTotalCount / this.props.pageSize);
+        // let pages = [];
+        // for (let i = 1; i <= pagesCount; i++) {
+        //     pages.push(i)
+        // }
         return (
             <>
                 {this.props.isFetching ?

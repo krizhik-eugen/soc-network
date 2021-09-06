@@ -9,6 +9,7 @@ import usersReducer, {
     setUsersTotalCount,
     unfollow
 } from './usersReducer';
+import authReducer, {setAuthUsersData} from "./authReducer";
 
 export type DispatchTypes =
     ReturnType<typeof addPostAC>
@@ -22,13 +23,15 @@ export type DispatchTypes =
     | ReturnType<typeof setUsersTotalCount>
     | ReturnType<typeof setFetching>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setAuthUsersData>
 
 export const rootReducer = combineReducers(
     {
         profilePage: profileReducer,
         dialogsPage: dialogsReducer,
         sideBar: sideBarReducer,
-        usersPage: usersReducer
+        usersPage: usersReducer,
+        auth: authReducer
     }
 );
 
