@@ -3,6 +3,7 @@ import styles from './Users.module.css';
 import defaultAva from '../../assets/defaultAva.png'
 import {UserType} from '../../redux/usersReducer';
 import {NavLink} from 'react-router-dom';
+import {followAPI} from "../../api/api";
 
 type UserPropsType = {
     usersTotalCount: number
@@ -35,16 +36,28 @@ export const Users = (props: UserPropsType) => {
                             <div>
                                 <NavLink to={'/profile/' + u.id}>
                                     <img alt={'user photo'}
-                                              src={u.photos.large ? u.photos.large : u.photos.small ? u.photos.small : defaultAva}
-                                              className={styles.usersPhoto}/>
+                                         src={u.photos.large ? u.photos.large : u.photos.small ? u.photos.small : defaultAva}
+                                         className={styles.usersPhoto}/>
                                 </NavLink>
                             </div>
                             <div>
                                 {u.followed ? <button onClick={() => {
+                                        followAPI.setUnfollowed(u.id)
+                                            .then(data => {
+                                                if (data.resultCode === 0) {
+                                                    props.unfollow(u.id)
+                                                }
+                                            })
                                         props.unfollow(u.id)
                                     }}>Unfollow</button> :
                                     <button onClick={() => {
-                                        props.follow(u.id)
+
+                                        followAPI.setFollowed(u.id)
+                                            .then(data => {
+                                                if (data.resultCode === 0) {
+                                                    props.follow(u.id)
+                                                }
+                                            })
                                     }}>Follow</button>}
                             </div>
                         </span>
