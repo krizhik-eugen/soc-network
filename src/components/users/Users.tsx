@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Users.module.css';
 import defaultAva from '../../assets/defaultAva.png'
-import {UserType} from '../../redux/usersReducer';
+import {setFollowingProcess, UserType} from '../../redux/usersReducer';
 import {NavLink} from 'react-router-dom';
 import {followAPI} from "../../api/api";
 
@@ -13,6 +13,8 @@ type UserPropsType = {
     users: Array<UserType>
     unfollow: (id: number) => void
     follow: (id: number) => void
+    followingProcess: number[]
+    setFollowingProcess: (inProcess: boolean, id: number) => void
 }
 
 export const Users = (props: UserPropsType) => {
@@ -41,24 +43,29 @@ export const Users = (props: UserPropsType) => {
                                 </NavLink>
                             </div>
                             <div>
-                                {u.followed ? <button onClick={() => {
-                                        followAPI.setUnfollowed(u.id)
-                                            .then(data => {
-                                                if (data.resultCode === 0) {
-                                                    props.unfollow(u.id)
-                                                }
-                                            })
-                                        props.unfollow(u.id)
-                                    }}>Unfollow</button> :
-                                    <button onClick={() => {
-
-                                        followAPI.setFollowed(u.id)
-                                            .then(data => {
-                                                if (data.resultCode === 0) {
-                                                    props.follow(u.id)
-                                                }
-                                            })
-                                    }}>Follow</button>}
+                                {u.followed ? <button disabled={props.followingProcess.some(id => id === u.id)}
+                                                      onClick={() => {
+                                                          props.setFollowingProcess(true, u.id);
+                                                          followAPI.setUnfollowed(u.id)
+                                                              .then(data => {
+                                                                  if (data.resultCode === 0) {
+                                                                      props.unfollow(u.id)
+                                                                  }
+                                                                  props.setFollowingProcess(false, u.id)
+                                                              })
+                                                          props.unfollow(u.id)
+                                                      }}>Unfollow</button> :
+                                    <button disabled={props.followingProcess.some(id => id === u.id)}
+                                            onClick={() => {
+                                                props.setFollowingProcess(true, u.id)
+                                                followAPI.setFollowed(u.id)
+                                                    .then(data => {
+                                                        if (data.resultCode === 0) {
+                                                            props.follow(u.id)
+                                                        }
+                                                        props.setFollowingProcess(false, u.id)
+                                                    })
+                                            }}>Follow</button>}
                             </div>
                         </span>
                 <span>

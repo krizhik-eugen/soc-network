@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {
     follow,
-    setCurrentPage, setFetching,
+    setCurrentPage, setFetching, setFollowingProcess,
     setUsers,
     setUsersTotalCount, unfollow,
     UserType
@@ -51,6 +51,8 @@ class UsersContainer extends React.Component<UsersPagePropsType> {
                         users={this.props.users}
                         unfollow={this.props.unfollow}
                         follow={this.props.follow}
+                        followingProcess={this.props.followingProcess}
+                        setFollowingProcess={this.props.setFollowingProcess}
                     />
 
                 }
@@ -65,6 +67,7 @@ type MapStateToPropsType = {
     usersTotalCount: number
     currentPage: number
     isFetching: boolean
+    followingProcess: number[]
 }
 
 type MapDispatchToProps = {
@@ -74,6 +77,7 @@ type MapDispatchToProps = {
     setCurrentPage: (page: number) => void
     setUsersTotalCount: (count: number) => void
     setFetching: (isFetching: boolean) => void
+    setFollowingProcess: (inProcess: boolean, id: number) => void
 }
 
 export type UsersPagePropsType = MapStateToPropsType & MapDispatchToProps
@@ -84,7 +88,8 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         pageSize: state.usersPage.pageSize,
         usersTotalCount: state.usersPage.usersTotalCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingProcess: state.usersPage.followingProcess
     }
 }
 /*let mapDispatchToProps = () => {
@@ -104,5 +109,6 @@ export default connect(mapStateToProps, {
     setUsers,
     setCurrentPage,
     setUsersTotalCount,
-    setFetching
+    setFetching,
+    setFollowingProcess
 })(UsersContainer);

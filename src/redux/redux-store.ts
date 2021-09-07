@@ -5,7 +5,7 @@ import sideBarReducer from './sideBarReducer';
 import usersReducer, {
     follow,
     setCurrentPage,
-    setFetching, setUsers,
+    setFetching, setFollowingProcess, setUsers,
     setUsersTotalCount,
     unfollow
 } from './usersReducer';
@@ -24,6 +24,7 @@ export type DispatchTypes =
     | ReturnType<typeof setFetching>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setAuthUsersData>
+    | ReturnType<typeof setFollowingProcess>
 
 export const rootReducer = combineReducers(
     {

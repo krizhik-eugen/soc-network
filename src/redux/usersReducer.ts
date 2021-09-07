@@ -19,14 +19,16 @@ export type UsersPageType = {
     usersTotalCount: number
     currentPage: number
     isFetching: boolean
+    followingProcess: number[]
 }
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
-const SET_CURRENT_PAGE = 'SET_CURRENT-PAGE'
-const SET_USERS_TOTAL_COUNT = 'SET_USERS_TOTAL_COUNT'
-const SET_FETCHING = 'SET_FETCHING'
+const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
+const SET_USERS_TOTAL_COUNT = 'SET-USERS-TOTAL-COUNT'
+const SET_FETCHING = 'SET-FETCHING'
+const SET_FOLLOWING_PROCESS = 'SET-FOLLOWING-PROCESS'
 
 export const follow = (userID: number) => ({type: FOLLOW, userID}) as const
 export const unfollow = (userID: number) => ({type: UNFOLLOW, userID}) as const
@@ -34,13 +36,15 @@ export const setUsers = (users: Array<UserType>) => ({type: SET_USERS, users}) a
 export const setCurrentPage = (page: number) => ({type: SET_CURRENT_PAGE, page}) as const
 export const setUsersTotalCount = (count: number) => ({type: SET_USERS_TOTAL_COUNT, count}) as const
 export const setFetching = (isFetching: boolean) => ({type: SET_FETCHING, isFetching}) as const
+export const setFollowingProcess = (inProcess: boolean, id: number) => ({type: SET_FOLLOWING_PROCESS, inProcess, id}) as const
 
 let initialState: UsersPageType = {
     users: [],
     pageSize: 10,
     usersTotalCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingProcess: []
 }
 
 const usersReducer = (state = initialState, action: DispatchTypes): UsersPageType => {
@@ -68,6 +72,13 @@ const usersReducer = (state = initialState, action: DispatchTypes): UsersPageTyp
         case SET_FETCHING:
             return {
                 ...state, isFetching: action.isFetching
+            }
+        case SET_FOLLOWING_PROCESS:
+            return {
+                ...state,
+                followingProcess: action.inProcess
+                    ? [...state.followingProcess, action.id]
+                    : state.followingProcess.filter(id => id != action.id)
             }
         default:
             return state
