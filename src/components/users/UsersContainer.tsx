@@ -1,44 +1,23 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {
-    follow,
-    setCurrentPage, setFetching, setFollowingProcess,
-    setUsers,
-    setUsersTotalCount, unfollow,
+    changePage, getUsers, setFollow, setUnFollow,
     UserType
 } from '../../redux/usersReducer';
 import {AppStateType} from '../../redux/redux-store';
 import {Users} from './Users';
 import {Preloader} from '../common/preloader/Preloader';
-import {usersAPI} from "../../api/api";
 
 class UsersContainer extends React.Component<UsersPagePropsType> {
     componentDidMount() {
-        this.props.setFetching(true)
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                this.props.setUsers(data.items);
-                this.props.setUsersTotalCount(data.totalCount);
-                this.props.setFetching(false)
-            })
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     onChangePageHandler = (p: number) => {
-        this.props.setCurrentPage(p)
-        this.props.setFetching(true)
-        usersAPI.getUsers(p, this.props.pageSize)
-            .then(data => {
-                this.props.setUsers(data.items);
-                this.props.setFetching(false)
-            })
+        this.props.changePage(p, this.props.pageSize)
     }
 
     render() {
-        // let pagesCount = Math.ceil(this.props.usersTotalCount / this.props.pageSize);
-        // let pages = [];
-        // for (let i = 1; i <= pagesCount; i++) {
-        //     pages.push(i)
-        // }
         return (
             <>
                 {this.props.isFetching ?
@@ -49,12 +28,11 @@ class UsersContainer extends React.Component<UsersPagePropsType> {
                         onChangePageHandler={this.onChangePageHandler}
                         currentPage={this.props.currentPage}
                         users={this.props.users}
-                        unfollow={this.props.unfollow}
-                        follow={this.props.follow}
+                        setUnFollow={this.props.setUnFollow}
+                        setFollow={this.props.setFollow}
                         followingProcess={this.props.followingProcess}
-                        setFollowingProcess={this.props.setFollowingProcess}
+                        // setFollowingProcess={this.props.setFollowingProcess}
                     />
-
                 }
             </>
         )
@@ -71,13 +49,11 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToProps = {
-    follow: (userID: number) => void
-    unfollow: (userID: number) => void
-    setUsers: (users: Array<UserType>) => void
-    setCurrentPage: (page: number) => void
-    setUsersTotalCount: (count: number) => void
-    setFetching: (isFetching: boolean) => void
-    setFollowingProcess: (inProcess: boolean, id: number) => void
+    // setFollowingProcess: (inProcess: boolean, id: number) => void
+    getUsers: (currentPage: number, pageSize: number) => void
+    changePage: (p: number, pageSize: number) => void
+    setUnFollow: (id: number) => void
+    setFollow: (id: number) => void
 }
 
 export type UsersPagePropsType = MapStateToPropsType & MapDispatchToProps
@@ -92,23 +68,11 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         followingProcess: state.usersPage.followingProcess
     }
 }
-/*let mapDispatchToProps = () => {
-    return {
-        follow,
-        unfollow,
-        setUsers,
-        setCurrentPage,
-        setUsersTotalCount,
-        setFetching
-    }
-}*/
 
 export default connect(mapStateToProps, {
-    follow,
-    unfollow,
-    setUsers,
-    setCurrentPage,
-    setUsersTotalCount,
-    setFetching,
-    setFollowingProcess
+    // setFollowingProcess,
+    getUsers,
+    changePage,
+    setUnFollow,
+    setFollow
 })(UsersContainer);

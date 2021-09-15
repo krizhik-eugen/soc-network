@@ -1,4 +1,6 @@
+import {Dispatch} from 'redux';
 import {DispatchTypes} from './redux-store';
+import {authAPI} from "../api/api";
 
 export type AuthDataType = {
     id: number
@@ -10,6 +12,15 @@ const SET_USER_DATA = 'SET-USERS-DATA'
 
 
 export const setAuthUsersData = (data: AuthDataType) => ({type: SET_USER_DATA, data}) as const
+
+export const getMyAuth = () => (dispatch: Dispatch) => {
+    authAPI.meAuth()
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setAuthUsersData(response.data.data))
+            }
+        })
+}
 
 type InitialStateType = {
     id: number

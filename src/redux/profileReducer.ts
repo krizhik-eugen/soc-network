@@ -1,4 +1,6 @@
+import {Dispatch} from 'redux';
 import {DispatchTypes} from './redux-store';
+import {usersAPI} from "../api/api";
 
 export type PostType = {
     id?: number
@@ -42,6 +44,13 @@ export const addPostAC = () => ({type: ADD_POST}) as const
 export const addNewPostContentAC = (newPostContent: string) =>
     ({type: ADD_NEW_POST_CONTENT, newPostContent: newPostContent}) as const
 export const setUserProfile = (profile: UserProfileType) => ({type: SET_USER_PROFILE, profile: profile}) as const
+
+export const getUserProfileById = (userId: string) => (dispatch: Dispatch) => {
+    usersAPI.getProfile(userId)
+        .then(response => {
+            dispatch(setUserProfile(response.data))
+        })
+}
 
 let initialState: ProfilePageType = {
     posts: [{id: 1, message: 'Hello', likeCount: 15},

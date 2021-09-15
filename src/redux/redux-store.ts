@@ -1,4 +1,5 @@
-import {combineReducers, createStore} from 'redux';
+import {applyMiddleware, combineReducers, createStore} from 'redux';
+import thunkMiddleWare from 'redux-thunk';
 import profileReducer, {addNewPostContentAC, addPostAC, setUserProfile} from './profileReducer';
 import dialogsReducer, {addMessageAC, addNewMessageContentAC} from './dialogsReducer';
 import sideBarReducer from './sideBarReducer';
@@ -38,4 +39,4 @@ export const rootReducer = combineReducers(
 
 export type AppStateType = ReturnType<typeof rootReducer>
 
-export const store = createStore(rootReducer)
+export const store = createStore(rootReducer, applyMiddleware(thunkMiddleWare))

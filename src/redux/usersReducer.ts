@@ -1,4 +1,6 @@
 import {DispatchTypes} from './redux-store';
+import {usersAPI} from "../api/api";
+import {Dispatch} from 'redux';
 
 export type LocationType = {
     city: string
@@ -36,7 +38,52 @@ export const setUsers = (users: Array<UserType>) => ({type: SET_USERS, users}) a
 export const setCurrentPage = (page: number) => ({type: SET_CURRENT_PAGE, page}) as const
 export const setUsersTotalCount = (count: number) => ({type: SET_USERS_TOTAL_COUNT, count}) as const
 export const setFetching = (isFetching: boolean) => ({type: SET_FETCHING, isFetching}) as const
-export const setFollowingProcess = (inProcess: boolean, id: number) => ({type: SET_FOLLOWING_PROCESS, inProcess, id}) as const
+export const setFollowingProcess = (inProcess: boolean, id: number) => ({
+    type: SET_FOLLOWING_PROCESS,
+    inProcess,
+    id
+}) as const
+
+export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch(setFetching(true))
+    usersAPI.getUsers(currentPage, pageSize)
+        .then(data => {
+            dispatch(setUsers(data.items));
+            dispatch(setUsersTotalCount(data.totalCount));
+            dispatch(setFetching(false))
+        })
+}
+export const changePage = (p: number, pageSize: number) => (dispatch: Dispatch) => {
+    dispatch(setCurrentPage(p));
+    dispatch(setFetching(true));
+    usersAPI.getUsers(p, pageSize)
+        .then(data => {
+            dispatch(setUsers(data.items));
+            dispatch(setFetching(false))
+        })
+}
+export const setUnFollow = (id: number) => (dispatch: Dispatch) => {
+    dispatch(setFollowingProcess(true, id));
+    usersAPI.setUnfollowed(id)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(unfollow(id))
+            }
+            dispatch(setFollowingProcess(false, id))
+        })
+    dispatch(unfollow(id))
+}
+export const setFollow = (id: number) => (dispatch: Dispatch) => {
+    dispatch(setFollowingProcess(true, id));
+    usersAPI.setFollowed(id)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(follow(id))
+            }
+            dispatch(setFollowingProcess(false, id))
+        })
+    dispatch(follow(id))
+}
 
 let initialState: UsersPageType = {
     users: [],
@@ -78,7 +125,7 @@ const usersReducer = (state = initialState, action: DispatchTypes): UsersPageTyp
                 ...state,
                 followingProcess: action.inProcess
                     ? [...state.followingProcess, action.id]
-                    : state.followingProcess.filter(id => id != action.id)
+                    : state.followingProcess.filter(id => id !== action.id)
             }
         default:
             return state

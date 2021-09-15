@@ -1,7 +1,6 @@
 import axios from "axios";
 import {UserType} from "../redux/usersReducer";
 
-
 type UsersResponseType = {
     items: UserType[]
     totalCount: number
@@ -29,16 +28,33 @@ const instance = axios.create({
 })
 
 export const usersAPI = {
-    getUsers(currentPage: number, pageSize: number){
+    getUsers(currentPage: number, pageSize: number) {
         return instance.get<UsersResponseType>(
             `users?page=${currentPage}&count=${pageSize}`
-            )
+        )
             .then(response => {
                 return response.data
             })
+    },
+    setUnfollowed(id: number) {
+        return instance.delete<FollowResponseType>(
+            `follow/${id}`
+        ).then(response => {
+            return response.data
+        })
+    },
+    setFollowed(id: number) {
+        return instance.post<FollowResponseType>(
+            `follow/${id}`
+        ).then(response => {
+            return response.data
+        })
+    },
+    getProfile(userId: string) {
+        return instance.get('profile/' + userId)
     }
 }
-
+/*
 export const followAPI = {
     setUnfollowed(id: number){
         return instance.delete<FollowResponseType>(
@@ -54,15 +70,13 @@ export const followAPI = {
             return response.data
         })
     },
-}
+}*/
 
 export const authAPI = {
     meAuth() {
         return instance.get<AuthMeResponseType>(
             `auth/me`
-        ).then(response => {
-            return response.data
-        })
+        )
     }
 }
 

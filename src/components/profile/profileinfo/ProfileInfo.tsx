@@ -19,7 +19,15 @@ export function ProfileInfo(props: ProfileInfoPropsType) {
                      alt=''/>
             </div>
             <div className={styles.description}>
-                <div><img src={props.profile.photos.large}/></div>
+                {props.profile.photos.large
+                    ? <div><img src={props.profile.photos.large} alt={'user avatar'}/></div> :
+                    props.profile.photos.small
+                        ? <div><img src={props.profile.photos.small} alt={'user avatar'}/></div>
+                        : <div><img
+                            src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGS-e3KADHPl0FNuePNVZKd2q2VMrB7HmsuSjVZeiJjeD1BgCNnBTDwK9T_iwkyMJUdGM&usqp=CAU'}
+                            alt={'user avatar'}/>
+                        </div>}
+                {/*<div><img src={props.profile.photos.large}/></div>*/}
                 <span>{props.profile.fullName}</span>
                 <div>Contacts:</div>
                 <div>Site: {props.profile.contacts.mainLink}</div>
