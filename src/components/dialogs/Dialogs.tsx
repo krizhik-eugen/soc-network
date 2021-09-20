@@ -3,7 +3,6 @@ import {DialogItem} from "./DialogItem/DialogItem";
 import styles from './Dialogs.module.css'
 import {Message} from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
-import {Redirect} from "react-router-dom";
 
 export const Dialogs = (props: DialogsPropsType) => {
     let dialogsItems = props.dialogs.map(d => <DialogItem key={d.id} id={d.id} name={d.name} avatar={d.avatar}/>)
@@ -11,8 +10,6 @@ export const Dialogs = (props: DialogsPropsType) => {
 
     const addMessage = () => props.addMessage()
     const addNewMessageContent = (e: ChangeEvent<HTMLTextAreaElement>) => props.addNewMessageContent(e.currentTarget.value)
-
-    if (!props.isAuth) return <Redirect to={'/Login'}/>
 
     return (
         <div className={styles.dialogs}>
