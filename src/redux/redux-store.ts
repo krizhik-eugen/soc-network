@@ -1,6 +1,12 @@
 import {applyMiddleware, combineReducers, createStore} from 'redux';
 import thunkMiddleWare from 'redux-thunk';
-import profileReducer, {addNewPostContentAC, addPostAC, setUserProfile} from './profileReducer';
+import profileReducer, {
+    addNewPostContentAC,
+    addPostAC,
+    setStatus,
+    setUserProfile,
+    updateStatus
+} from './profileReducer';
 import dialogsReducer, {addMessageAC, addNewMessageContentAC} from './dialogsReducer';
 import sideBarReducer from './sideBarReducer';
 import usersReducer, {
@@ -26,6 +32,8 @@ export type DispatchTypes =
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setAuthUsersData>
     | ReturnType<typeof setFollowingProcess>
+    | ReturnType<typeof setStatus>
+    | ReturnType<typeof updateStatus>
 
 export const rootReducer = combineReducers(
     {

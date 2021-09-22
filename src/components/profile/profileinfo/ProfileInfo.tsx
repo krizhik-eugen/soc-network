@@ -1,11 +1,13 @@
 import React from 'react';
 import styles from './ProfileInfo.module.css';
-import {UserProfileType} from '../../../redux/profileReducer';
+import {updateUserStatus, UserProfileType} from '../../../redux/profileReducer';
 import {Preloader} from '../../common/preloader/Preloader';
 import {ProfileStatus} from "./ProfileStatus";
 
 type ProfileInfoPropsType = {
     profile: UserProfileType
+    status: string
+    updateUserStatus: (status: string) => void
 }
 
 export function ProfileInfo(props: ProfileInfoPropsType) {
@@ -29,7 +31,7 @@ export function ProfileInfo(props: ProfileInfoPropsType) {
                             alt={'user avatar'}/>
                         </div>}
                 {/*<div><img src={props.profile.photos.large}/></div>*/}
-                <ProfileStatus status={'Hello'}/>
+                <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>
                 <span>{props.profile.fullName}</span>
                 <div>Contacts:</div>
                 <div>Site: {props.profile.contacts.mainLink}</div>
