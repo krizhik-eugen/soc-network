@@ -1,6 +1,7 @@
 import axios from "axios";
 import {UserType} from "../redux/usersReducer";
 import {UserProfileType} from "../redux/profileReducer";
+import {FormDataType} from "../components/login/login";
 
 type UsersResponseType = {
     items: UserType[]
@@ -113,6 +114,12 @@ export const authAPI = {
         return instance.get<AuthMeResponseType>(
             `auth/me`
         )
+    },
+    logIn(formData: FormDataType){
+        return instance.post(`auth/login`, formData)
+    },
+    logOut(){
+        return instance.delete(`auth/login`)
     }
 }
 

@@ -1,6 +1,7 @@
 import {Dispatch} from 'redux';
 import {DispatchTypes} from './redux-store';
 import {authAPI} from "../api/api";
+import {FormDataType} from "../components/login/login";
 
 export type AuthDataType = {
     id: number
@@ -9,7 +10,6 @@ export type AuthDataType = {
 }
 
 const SET_USER_DATA = 'SET-USERS-DATA'
-
 
 export const setAuthUsersData = (data: AuthDataType) => ({type: SET_USER_DATA, data}) as const
 

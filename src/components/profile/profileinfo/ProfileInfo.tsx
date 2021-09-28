@@ -35,7 +35,7 @@ export function ProfileInfo(props: ProfileInfoPropsType) {
                 <span>{props.profile.fullName}</span>
                 <div>Contacts:</div>
                 <div>Site: {props.profile.contacts.mainLink}</div>
-                <div>FaceBook: {props.profile.contacts.facebook}</div>
+                <div>Facebook: {props.profile.contacts.facebook}</div>
                 <div>Instagram: {props.profile.contacts.instagram}</div>
                 <div>GitHub: {props.profile.contacts.github}</div>
             </div>
