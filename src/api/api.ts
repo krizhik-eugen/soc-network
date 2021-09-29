@@ -74,7 +74,7 @@ export const usersAPI = {
         })
     },
     getProfile(userId: string) {
-        console.warn('use get Profile in ProfileAPI')
+        // console.warn('use get Profile in ProfileAPI')
         return profileAPI.getProfile(userId)
     }
 }

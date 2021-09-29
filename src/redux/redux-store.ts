@@ -2,13 +2,12 @@ import {applyMiddleware, combineReducers, createStore} from 'redux';
 import { reducer as formReducer } from 'redux-form'
 import thunkMiddleWare from 'redux-thunk';
 import profileReducer, {
-    addNewPostContentAC,
     addPostAC,
     setStatus,
     setUserProfile,
     updateStatus
 } from './profileReducer';
-import dialogsReducer, {addMessageAC, addNewMessageContentAC} from './dialogsReducer';
+import dialogsReducer, {addMessageAC} from './dialogsReducer';
 import sideBarReducer from './sideBarReducer';
 import usersReducer, {
     follow,
@@ -21,9 +20,7 @@ import authReducer, {setAuthUsersData} from "./authReducer";
 
 export type DispatchTypes =
     ReturnType<typeof addPostAC>
-    | ReturnType<typeof addNewPostContentAC>
     | ReturnType<typeof addMessageAC>
-    | ReturnType<typeof addNewMessageContentAC>
     | ReturnType<typeof follow>
     | ReturnType<typeof unfollow>
     | ReturnType<typeof setUsers>
