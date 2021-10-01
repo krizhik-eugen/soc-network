@@ -10,7 +10,7 @@ import {FriendsContainer} from './components/friends/FriendsContainer';
 import UsersContainer from './components/users/UsersContainer';
 import ProfileContainer from './components/profile/ProfileContainer';
 import HeaderContainer from './components/header/HeaderContainer';
-import {Login} from "./components/login/login";
+import Login from "./components/login/login";
 
 export const App = () => {
     return (

@@ -46,7 +46,7 @@ type AuthMeResponseType = {
 
 const instance = axios.create({
     withCredentials: true,
-    headers: {"API-KEY": '29594cf8-7a2a-4c99-90e3-aafc284f801d'},
+    headers: {"API-KEY": '29594cf8-7a2a-4c99-90e3-aafc284f801d'},    /*96ed57f4-8713-4490-b93d-c4084b6b6075*/
     baseURL: `https://social-network.samuraijs.com/api/1.0/`
 })
 
@@ -115,8 +115,8 @@ export const authAPI = {
             `auth/me`
         )
     },
-    logIn(formData: FormDataType){
-        return instance.post(`auth/login`, formData)
+    logIn(email: string, password: string, rememberMe: boolean){
+        return instance.post(`auth/login`, {email, password, rememberMe})
     },
     logOut(){
         return instance.delete(`auth/login`)
