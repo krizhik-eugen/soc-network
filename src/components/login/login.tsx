@@ -1,11 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLength, requiredField} from '../../utils/validators/validators';
 import {Input} from "../common/formControls/FormControls";
 import {login} from "../../redux/authReducer";
 import {AppStateType} from "../../redux/redux-store";
-import { Redirect } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
+import styles from './../common/formControls/FormControls.module.css'
 
 export type FormDataType = {
     email: string
@@ -28,6 +29,8 @@ const LoginForm = (props: InjectedFormProps<FormDataType>) => {
             <div>
                 <Field type={"checkbox"} component={Input} name={'rememberMe'}/> remember me
             </div>
+            {props.error && <div className={styles.formError}>{props.error}</div>}
+
             <div>
                 <button>login</button>
             </div>
@@ -38,10 +41,10 @@ const LoginForm = (props: InjectedFormProps<FormDataType>) => {
 const ReduxLoginForm = reduxForm<FormDataType>({form: "login"})(LoginForm)
 
 const Login = (props: LoginPropsType) => {
-    const onSubmit = (formData:FormDataType) => {
+    const onSubmit = (formData: FormDataType) => {
         props.login(formData.email, formData.password, formData.rememberMe)
     }
-    if(props.isAuth){
+    if (props.isAuth) {
         return <Redirect to={'/profile'}/>
 
     }
@@ -68,4 +71,4 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 
 
-export default connect(mapStateToProps, {login} )(Login)
+export default connect(mapStateToProps, {login})(Login)

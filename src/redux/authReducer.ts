@@ -1,7 +1,8 @@
 import {Dispatch} from 'redux';
 import {AppStateType, DispatchTypes} from './redux-store';
 import {authAPI} from "../api/api";
-import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import {ThunkAction, ThunkDispatch} from 'redux-thunk';
+import {stopSubmit} from 'redux-form';
 
 /*
 export type AuthDataType = {
@@ -31,6 +32,13 @@ export const login = (email: string, password: string, rememberMe: boolean): Thu
         .then((res) => {
             if (res.data.resultCode === 0) {
                 dispatch(getMyAuth())
+            } else if (res.data.resultCode === 10) {
+                //@ts-ignore
+                dispatch(stopSubmit('login', {_error: 'anti-bot error (captcha)'}))
+            } else {
+                //@ts-ignore
+                dispatch(stopSubmit('login',
+                    {_error: res.data.messages ? res.data.messages[0] : 'Some error occurred'}))
             }
         })
 }

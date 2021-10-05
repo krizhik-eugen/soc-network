@@ -3,14 +3,18 @@ import {Profile} from './Profile';
 import {connect} from 'react-redux';
 import {UserProfileType, getUserProfileById, getUserStatusById, updateUserStatus} from '../../redux/profileReducer';
 import {AppStateType} from '../../redux/redux-store';
-import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
 import {compose} from 'redux';
 
 class ProfileContainer extends React.Component <ProfilePagePropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = '15667'
+            // userId = '15667'
+            if (this.props.authorizedUserId) {
+                userId = this.props.authorizedUserId.toString()
+            }
+
         }
         this.props.getUserProfileById(userId)
         this.props.getUserStatusById((userId))
@@ -20,16 +24,23 @@ class ProfileContainer extends React.Component <ProfilePagePropsType> {
 
         return (
             <div>
-                <Profile {...this.props} profile={this.props.profile} status={this.props.status}
-                         updateUserStatus={this.props.updateUserStatus}/>
+                {this.props.authorizedUserId ?
+                    <Profile {...this.props} profile={this.props.profile} status={this.props.status}
+                             updateUserStatus={this.props.updateUserStatus}/>
+                    :
+                    <Redirect to={'/Login'}/>
+                }
+
             </div>
         )
     }
 }
 
 type MapStateToPropsType = {
-    profile: UserProfileType,
+    profile: UserProfileType
     status: string
+    authorizedUserId: number | null
+    isAuth: boolean
 }
 type MapDispatchToPropsType = {
     getUserProfileById: (userId: string) => void
@@ -45,7 +56,9 @@ type ProfilePagePropsType = RouteComponentProps<ParamsType> & OwnProfilePageProp
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    authorizedUserId: state.auth.id,
+    isAuth: state.auth.isAuth
 });
 
 export default compose<React.ComponentType>(
