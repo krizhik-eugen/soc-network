@@ -44,7 +44,7 @@ export const setFollowingProcess = (inProcess: boolean, id: number) => ({
     id
 }) as const
 
-export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Dispatch<DispatchTypes>) => {
+export const getUsersFromServer = (currentPage: number, pageSize: number) => (dispatch: Dispatch<DispatchTypes>) => {
     dispatch(setFetching(true))
     usersAPI.getUsers(currentPage, pageSize)
         .then(data => {

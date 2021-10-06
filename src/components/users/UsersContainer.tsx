@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {
-    changePage, getUsers, setFollow, setUnFollow,
+    changePage, getUsersFromServer, setFollow, setUnFollow,
     UserType
 } from '../../redux/usersReducer';
 import {AppStateType} from '../../redux/redux-store';
@@ -9,10 +9,18 @@ import {Users} from './Users';
 import {Preloader} from '../common/preloader/Preloader';
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import { compose } from 'redux';
+import {
+    getCurrentPage,
+    getFollowingProcess,
+    getIsFetching,
+    getPageSize,
+    getUsers,
+    getUsersTotalCount
+} from "./UsersSelectors";
 
 class UsersContainer extends React.Component<UsersPagePropsType> {
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+        this.props.getUsersFromServer(this.props.currentPage, this.props.pageSize)
     }
 
     onChangePageHandler = (p: number) => {
@@ -52,29 +60,29 @@ type MapStateToPropsType = {
 
 type MapDispatchToProps = {
     // setFollowingProcess: (inProcess: boolean, id: number) => void
-    getUsers: (currentPage: number, pageSize: number) => void
+    getUsersFromServer: (currentPage: number, pageSize: number) => void
     changePage: (p: number, pageSize: number) => void
     setUnFollow: (id: number) => void
     setFollow: (id: number) => void
 }
 
 export type UsersPagePropsType = MapStateToPropsType & MapDispatchToProps
-
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        usersTotalCount: state.usersPage.usersTotalCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingProcess: state.usersPage.followingProcess
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        usersTotalCount: getUsersTotalCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingProcess: getFollowingProcess(state)
     }
 }
 
 export default compose<React.ComponentType> (
     connect(mapStateToProps, {
         // setFollowingProcess,
-        getUsers,
+        getUsersFromServer,
         changePage,
         setUnFollow,
         setFollow

@@ -1,5 +1,5 @@
 import {applyMiddleware, combineReducers, createStore} from 'redux';
-import { reducer as formReducer } from 'redux-form'
+import {reducer as formReducer} from 'redux-form'
 import thunkMiddleWare from 'redux-thunk';
 import profileReducer, {
     addPostAC,
@@ -17,6 +17,7 @@ import usersReducer, {
     unfollow
 } from './usersReducer';
 import authReducer, {setAuthUsersData} from "./authReducer";
+import appReducer, {setInitializingCompleted} from "./appReducer";
 
 export type DispatchTypes =
     ReturnType<typeof addPostAC>
@@ -32,6 +33,7 @@ export type DispatchTypes =
     | ReturnType<typeof setFollowingProcess>
     | ReturnType<typeof setStatus>
     | ReturnType<typeof updateStatus>
+    | ReturnType<typeof setInitializingCompleted>
 
 export const rootReducer = combineReducers(
     {
@@ -40,7 +42,8 @@ export const rootReducer = combineReducers(
         sideBar: sideBarReducer,
         usersPage: usersReducer,
         auth: authReducer,
-        form: formReducer
+        form: formReducer,
+        app: appReducer
     }
 );
 
