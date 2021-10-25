@@ -40,7 +40,7 @@ const LoginForm = (props: InjectedFormProps<FormDataType>) => {
 
 const ReduxLoginForm = reduxForm<FormDataType>({form: "login"})(LoginForm)
 
-const Login = (props: LoginPropsType) => {
+const Login = React.memo((props: LoginPropsType) => {
     const onSubmit = (formData: FormDataType) => {
         props.login(formData.email, formData.password, formData.rememberMe)
     }
@@ -54,7 +54,7 @@ const Login = (props: LoginPropsType) => {
             <ReduxLoginForm onSubmit={onSubmit}/>
         </div>
     )
-}
+})
 
 type MapStateToPropsType = {
     isAuth: boolean
@@ -71,4 +71,4 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 
 
-export default connect(mapStateToProps, {login})(Login)
+export default React.memo(connect(mapStateToProps, {login})(Login))

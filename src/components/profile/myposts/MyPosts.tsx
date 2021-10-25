@@ -10,7 +10,7 @@ type ValuesType = {
     newPost: string
 }
 
-export const MyPosts = (props: MyPostsPropsType) => {
+export const MyPosts = React.memo((props: MyPostsPropsType) => {
     let postsItems = props.posts.map(p => <Post key={p.id} message={p.message} likeCount={p.likeCount}/>)
     const addNewPost = (values: ValuesType) => {
         props.addPost(values.newPost)
@@ -27,9 +27,9 @@ export const MyPosts = (props: MyPostsPropsType) => {
             </div>
         </div>
     );
-}
+})
 const maxLengthValue10 = maxLength(10)
-const MyNewPostForm = (props: InjectedFormProps<ValuesType>) => {
+const MyNewPostForm = React.memo((props: InjectedFormProps<ValuesType>) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
@@ -42,6 +42,6 @@ const MyNewPostForm = (props: InjectedFormProps<ValuesType>) => {
             </div>
         </form>
     )
-}
+})
 
 const ReduxMyNewPostForm = reduxForm<ValuesType>({form: 'newPost'})(MyNewPostForm)

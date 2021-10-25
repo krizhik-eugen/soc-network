@@ -1,11 +1,11 @@
 import React from 'react';
-import {addMessageAC, DialogType} from "../../redux/dialogsReducer";
-import {Dialogs} from "./Dialogs";
-import {connect} from "react-redux";
-import {AppStateType} from "../../redux/redux-store";
-import {compose, Dispatch} from "redux";
-import {MessageType} from "./Message/Message";
-import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {addMessageAC, DialogType} from '../../redux/dialogsReducer';
+import {Dialogs} from './Dialogs';
+import {connect} from 'react-redux';
+import {AppStateType} from '../../redux/redux-store';
+import {compose, Dispatch} from 'redux';
+import {MessageType} from './Message/Message';
+import {WithAuthRedirect} from '../../hoc/WithAuthRedirect';
 
 type MapStateToPropsType = {
     dialogs: Array<DialogType>
@@ -33,7 +33,8 @@ let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     }
 }
 
-export const DialogsContainer = compose<React.ComponentType>(
-    connect(mapStateToProps, mapDispatchToProps),
-    WithAuthRedirect
-)(Dialogs)
+export const DialogsContainer = React.memo(
+    compose<React.ComponentType>(
+        connect(mapStateToProps, mapDispatchToProps),
+        WithAuthRedirect
+    )(Dialogs))

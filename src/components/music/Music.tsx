@@ -1,10 +1,8 @@
 import React from "react";
 import styles from './Music.module.css'
 
-export function Music() {
-    return (
-        <div>
-            Music
-        </div>
-    )
-}
+export const Music = React.memo(() => (
+    <div>
+        Music
+    </div>
+));

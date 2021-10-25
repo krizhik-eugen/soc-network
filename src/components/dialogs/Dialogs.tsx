@@ -10,7 +10,7 @@ export type ValuesType = {
     newMessage: string
 }
 
-export const Dialogs = (props: DialogsPropsType) => {
+export const Dialogs = React.memo((props: DialogsPropsType) => {
     let dialogsItems = props.dialogs.map(d => <DialogItem key={d.id} id={d.id} name={d.name} avatar={d.avatar}/>)
     let messagesItems = props.messages.map(m => <Message key={m.id} message={m.message}/>)
 
@@ -29,10 +29,10 @@ export const Dialogs = (props: DialogsPropsType) => {
             </div>
         </div>
     )
-}
+})
 
 const maxLength150 = maxLength(150)
-const AddNewMessageForm = (props: InjectedFormProps<ValuesType>) => {
+const AddNewMessageForm = React.memo((props: InjectedFormProps<ValuesType>) => {
 
     return (
         <form onSubmit={props.handleSubmit}>
@@ -47,6 +47,6 @@ const AddNewMessageForm = (props: InjectedFormProps<ValuesType>) => {
         </form>
 
     )
-}
+})
 
 const ReduxAddNewMessageForm = reduxForm<ValuesType>({form: 'newMessage'})(AddNewMessageForm)

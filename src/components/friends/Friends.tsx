@@ -2,7 +2,7 @@ import React from "react";
 import styles from './Friends.module.css';
 import {FriendsPropsType} from "./FriendsContainer";
 
-export const Friends = (props: FriendsPropsType) => {
+export const Friends = React.memo((props: FriendsPropsType) => {
 
     return (
         <div className={styles.friends_wrapper}>
@@ -11,4 +11,4 @@ export const Friends = (props: FriendsPropsType) => {
                 <img src={f.ava} alt={'user avatar'}/></div>)}
         </div>)
 
-}
+})

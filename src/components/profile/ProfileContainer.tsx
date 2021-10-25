@@ -6,7 +6,7 @@ import {AppStateType} from '../../redux/redux-store';
 import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
 import {compose} from 'redux';
 
-class ProfileContainer extends React.Component <ProfilePagePropsType> {
+class ProfileContainer extends React.PureComponent <ProfilePagePropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId;
         if (!userId) {
@@ -61,8 +61,9 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     isAuth: state.auth.isAuth
 });
 
-export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getUserProfileById, getUserStatusById, updateUserStatus}),
-    withRouter,
-    // WithAuthRedirect
-)(ProfileContainer)
+export default React.memo(
+    compose<React.ComponentType>(
+        connect(mapStateToProps, {getUserProfileById, getUserStatusById, updateUserStatus}),
+        withRouter,
+        // WithAuthRedirect
+    )(ProfileContainer))

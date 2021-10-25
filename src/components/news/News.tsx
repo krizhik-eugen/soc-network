@@ -1,10 +1,8 @@
 import React from "react";
 import styles from './News.module.css'
 
-export function News() {
-    return (
-        <div>
-            News
-        </div>
-    )
-}
+export const News = React.memo(() => (
+    <div>
+        News
+    </div>
+));

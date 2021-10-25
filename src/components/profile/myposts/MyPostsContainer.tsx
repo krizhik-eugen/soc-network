@@ -3,6 +3,7 @@ import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
 import { Dispatch } from "redux";
+import React from "react";
 
 type MapStateToPropsType = {
     posts: Array<PostType>
@@ -24,4 +25,4 @@ let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     }
 }
 
-export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
+export const MyPostsContainer = React.memo(connect(mapStateToProps, mapDispatchToProps)(MyPosts))

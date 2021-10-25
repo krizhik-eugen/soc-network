@@ -7,8 +7,8 @@ import {
 import {AppStateType} from '../../redux/redux-store';
 import {Users} from './Users';
 import {Preloader} from '../common/preloader/Preloader';
-import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
-import { compose } from 'redux';
+import {WithAuthRedirect} from '../../hoc/WithAuthRedirect';
+import {compose} from 'redux';
 import {
     getCurrentPage,
     getFollowingProcess,
@@ -16,9 +16,9 @@ import {
     getPageSize,
     getUsers,
     getUsersTotalCount
-} from "./UsersSelectors";
+} from './UsersSelectors';
 
-class UsersContainer extends React.Component<UsersPagePropsType> {
+class UsersContainer extends React.PureComponent<UsersPagePropsType> {
     componentDidMount() {
         this.props.getUsersFromServer(this.props.currentPage, this.props.pageSize)
     }
@@ -79,16 +79,17 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-export default compose<React.ComponentType> (
-    connect(mapStateToProps, {
-        // setFollowingProcess,
-        getUsersFromServer,
-        changePage,
-        setUnFollow,
-        setFollow
-    }),
-    // WithAuthRedirect
-)(UsersContainer)
+export default React.memo(
+    compose<React.ComponentType>(
+        connect(mapStateToProps, {
+            // setFollowingProcess,
+            getUsersFromServer,
+            changePage,
+            setUnFollow,
+            setFollow
+        }),
+        // WithAuthRedirect
+    )(UsersContainer))
 
 
 /*

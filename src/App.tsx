@@ -17,7 +17,7 @@ import {AppStateType} from "./redux/redux-store";
 import {appInitializing} from "./redux/appReducer";
 import {Preloader} from "./components/common/preloader/Preloader";
 
-class App extends React.Component<AppPropsType> {
+class App extends React.PureComponent<AppPropsType> {
     componentDidMount() {
         this.props.appInitializing()
     }
@@ -60,4 +60,4 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 
 }
 
-export default connect(mapStateToProps, {appInitializing})(App)
+export default React.memo(connect(mapStateToProps, {appInitializing})(App))
