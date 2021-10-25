@@ -44,7 +44,7 @@ export const login = (email: string, password: string, rememberMe: boolean): Thu
 }
 
 export const logout = () => (dispatch: Dispatch) => {
-    authAPI.logOut()
+    authAPI.logout()
         .then((res) => {
             if (res.data.resultCode === 0) {
                 dispatch(setAuthUsersData(null, null, null, false))
