@@ -38,10 +38,12 @@ export type ProfilePageType = {
 
 
 const ADD_POST = 'ADD-POST'
+const DELETE_POST = 'DELETE-POST'
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
 const SET_STATUS = 'SET-STATUS'
 const UPDATE_STATUS = 'UPDATE-STATUS'
 export const addPostAC = (newPost: string) => ({type: ADD_POST, newPost}) as const
+export const deletePostAC = (postID: number) => ({type: DELETE_POST, postID}) as const
 export const setUserProfile = (profile: UserProfileType) => ({type: SET_USER_PROFILE, profile: profile}) as const
 export const setStatus = (status: string) => ({type: SET_STATUS, status}) as const
 export const updateStatus = (status: string) => ({type: UPDATE_STATUS, status}) as const
@@ -84,6 +86,10 @@ const profileReducer = (state: ProfilePageType = initialState, action: DispatchT
                 ...state,
                 posts: [...state.posts, {id: 5, message: action.newPost, likeCount: 0}]
             };
+        case DELETE_POST:
+            return {
+                ...state, posts: state.posts.filter(p=> p.id !== action.postID)
+            }
         case SET_USER_PROFILE:
             return {
                 ...state, profile: action.profile

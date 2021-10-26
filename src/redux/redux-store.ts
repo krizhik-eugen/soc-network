@@ -2,7 +2,7 @@ import {applyMiddleware, combineReducers, createStore} from 'redux';
 import {reducer as formReducer} from 'redux-form'
 import thunkMiddleWare from 'redux-thunk';
 import profileReducer, {
-    addPostAC,
+    addPostAC, deletePostAC,
     setStatus,
     setUserProfile,
     updateStatus
@@ -34,6 +34,7 @@ export type DispatchTypes =
     | ReturnType<typeof setStatus>
     | ReturnType<typeof updateStatus>
     | ReturnType<typeof setInitializingCompleted>
+    | ReturnType<typeof deletePostAC>
 
 export const rootReducer = combineReducers(
     {
