@@ -1,39 +1,39 @@
-import axios from "axios";
-import {UserType} from "../redux/usersReducer";
-import {UserProfileType} from "../redux/profileReducer";
-import {FormDataType} from "../components/login/login";
+import axios from 'axios';
+import {UserType} from '../redux/usersReducer';
 
 type UsersResponseType = {
     items: UserType[]
     totalCount: number
     error: string | null
 }
-type BaseResponseType = {
+type BaseResponseType<T = {}> = {
     resultCode: number
     messages: string[]
-    data: {}
+    data: T
 }
 
-type getProfileResponseType = {
-    userId: number
+export type getProfileResponseType = {
+    aboutMe: string
+    contacts: {
+        facebook: string | null
+        website: string | null
+        vk: string | null
+        twitter: string | null
+        instagram: string | null
+        youtube: string | null
+        github: string | null
+        mainLink: string | null
+    }
     lookingForAJob: boolean
     lookingForAJobDescription: string | null
     fullName: string
-    contacts: {
-        github: string | null
-        vk: string | null
-        facebook: string | null
-        instagram: string | null
-        twitter: string | null
-        website: string | null
-        youtube: string | null
-        mainLink: string | null
-    }
+    userId: number
     photos: {
-        small: string | null
-        large: string | null
+        small: string
+        large: string
     }
 }
+
 type AuthMeResponseType = {
     data: {
         id: number
@@ -46,7 +46,7 @@ type AuthMeResponseType = {
 
 const instance = axios.create({
     withCredentials: true,
-    headers: {"API-KEY": '29594cf8-7a2a-4c99-90e3-aafc284f801d'},    /*96ed57f4-8713-4490-b93d-c4084b6b6075*/
+    headers: {'API-KEY': '29594cf8-7a2a-4c99-90e3-aafc284f801d'},
     baseURL: `https://social-network.samuraijs.com/api/1.0/`
 })
 
@@ -74,7 +74,6 @@ export const usersAPI = {
         })
     },
     getProfile(userId: string) {
-        // console.warn('use get Profile in ProfileAPI')
         return profileAPI.getProfile(userId)
     }
 }
@@ -82,7 +81,7 @@ export const usersAPI = {
 
 export const profileAPI = {
     getProfile(userId: string) {
-        return instance.get<UserProfileType>('profile/' + userId)
+        return instance.get<getProfileResponseType>('profile/' + userId)
     },
     getStatus(userId: string) {
         return instance.get<string>('profile/status/' + userId)
@@ -91,35 +90,22 @@ export const profileAPI = {
         return instance.put<BaseResponseType>('profile/status', {status})
     }
 }
-/*
-export const followAPI = {
-    setUnfollowed(id: number){
-        return instance.delete<FollowResponseType>(
-            `follow/${id}`
-        ).then(response => {
-            return response.data
-        })
-    },
-    setFollowed(id: number){
-        return instance.post<FollowResponseType>(
-            `follow/${id}`
-        ).then(response => {
-            return response.data
-        })
-    },
-}*/
 
 export const authAPI = {
     meAuth() {
         return instance.get<AuthMeResponseType>(
             `auth/me`
-        )
+        );
     },
-    logIn(email: string, password: string, rememberMe: boolean){
-        return instance.post(`auth/login`, {email, password, rememberMe})
+    logIn(email: string, password: string, rememberMe: boolean) {
+        return instance.post<BaseResponseType<{ userId: string }>>(`auth/login`, {
+            email,
+            password,
+            rememberMe
+        })
     },
-    logout(){
-        return instance.delete(`auth/login`)
+    logout() {
+        return instance.delete<BaseResponseType>(`auth/login`)
     }
 }
 

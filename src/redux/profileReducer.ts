@@ -1,6 +1,6 @@
 import {Dispatch} from 'redux';
 import {DispatchTypes} from './redux-store';
-import {profileAPI, usersAPI} from "../api/api";
+import {getProfileResponseType, profileAPI, usersAPI} from '../api/api';
 
 export type PostType = {
     id?: number
@@ -8,27 +8,7 @@ export type PostType = {
     likeCount: number
 }
 
-export type UserProfileType = null | {
-    aboutMe: string
-    contacts: {
-        facebook: string | null
-        website: string | null
-        vk: string | null
-        twitter: string | null
-        instagram: string | null
-        youtube: string | null
-        github: string | null
-        mainLink: string | null
-    }
-    lookingForAJob: boolean
-    lookingForAJobDescription: string | null
-    fullName: string
-    userId: number
-    photos: {
-        small: string
-        large: string
-    }
-}
+export type UserProfileType = null | getProfileResponseType
 
 export type ProfilePageType = {
     posts: Array<PostType>

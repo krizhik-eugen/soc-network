@@ -16,8 +16,8 @@ import usersReducer, {
     setUsersTotalCount,
     unfollow
 } from './usersReducer';
-import authReducer, {setAuthUsersData} from "./authReducer";
-import appReducer, {setInitializingCompleted} from "./appReducer";
+import authReducer, {AuthReducerActionsTypes} from './authReducer';
+import appReducer, {appReducerActionsTypes} from './appReducer';
 
 export type DispatchTypes =
     ReturnType<typeof addPostAC>
@@ -29,11 +29,11 @@ export type DispatchTypes =
     | ReturnType<typeof setUsersTotalCount>
     | ReturnType<typeof setFetching>
     | ReturnType<typeof setUserProfile>
-    | ReturnType<typeof setAuthUsersData>
+    | AuthReducerActionsTypes
     | ReturnType<typeof setFollowingProcess>
     | ReturnType<typeof setStatus>
     | ReturnType<typeof updateStatus>
-    | ReturnType<typeof setInitializingCompleted>
+    | appReducerActionsTypes
     | ReturnType<typeof deletePostAC>
 
 export const rootReducer = combineReducers(
@@ -51,5 +51,7 @@ export const rootReducer = combineReducers(
 export type AppStateType = ReturnType<typeof rootReducer>
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleWare))
+
+
 // @ts-ignore
 window.store = store
