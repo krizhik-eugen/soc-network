@@ -2,39 +2,23 @@ import {applyMiddleware, combineReducers, createStore} from 'redux';
 import {reducer as formReducer} from 'redux-form'
 import thunkMiddleWare from 'redux-thunk';
 import profileReducer, {
-    addPostAC, deletePostAC,
-    setStatus,
-    setUserProfile,
-    updateStatus
+    ProfileReducerActionsTypes
 } from './profileReducer';
-import dialogsReducer, {addMessageAC} from './dialogsReducer';
-import sideBarReducer from './sideBarReducer';
+import dialogsReducer, {DialogsReducerActionsTypes} from './dialogsReducer';
+import sideBarReducer, {SideBarReducerActionsTypes} from './sideBarReducer';
 import usersReducer, {
-    follow,
-    setCurrentPage,
-    setFetching, setFollowingProcess, setUsers,
-    setUsersTotalCount,
-    unfollow
+    UserReducerActionsTypes
 } from './usersReducer';
 import authReducer, {AuthReducerActionsTypes} from './authReducer';
-import appReducer, {appReducerActionsTypes} from './appReducer';
+import appReducer, {AppReducerActionsTypes} from './appReducer';
 
 export type DispatchTypes =
-    ReturnType<typeof addPostAC>
-    | ReturnType<typeof addMessageAC>
-    | ReturnType<typeof follow>
-    | ReturnType<typeof unfollow>
-    | ReturnType<typeof setUsers>
-    | ReturnType<typeof setCurrentPage>
-    | ReturnType<typeof setUsersTotalCount>
-    | ReturnType<typeof setFetching>
-    | ReturnType<typeof setUserProfile>
+    | DialogsReducerActionsTypes
     | AuthReducerActionsTypes
-    | ReturnType<typeof setFollowingProcess>
-    | ReturnType<typeof setStatus>
-    | ReturnType<typeof updateStatus>
-    | appReducerActionsTypes
-    | ReturnType<typeof deletePostAC>
+    | ProfileReducerActionsTypes
+    | AppReducerActionsTypes
+    | SideBarReducerActionsTypes
+    | UserReducerActionsTypes
 
 export const rootReducer = combineReducers(
     {

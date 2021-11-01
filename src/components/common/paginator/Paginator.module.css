@@ -1,0 +1,14 @@
+.selectedPage {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.pages {
+    margin: 5px;
+}
+
+.pages span {
+    margin: 0 3px;
+    cursor: pointer;
+}
+

@@ -41,7 +41,6 @@ class UsersContainer extends React.PureComponent<UsersPagePropsType> {
                         setUnFollow={this.props.setUnFollow}
                         setFollow={this.props.setFollow}
                         followingProcess={this.props.followingProcess}
-                        // setFollowingProcess={this.props.setFollowingProcess}
                     />
                 }
             </>
@@ -59,7 +58,6 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToProps = {
-    // setFollowingProcess: (inProcess: boolean, id: number) => void
     getUsersFromServer: (currentPage: number, pageSize: number) => void
     changePage: (p: number, pageSize: number) => void
     setUnFollow: (id: number) => void
@@ -82,7 +80,6 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 export default React.memo(
     compose<React.ComponentType>(
         connect(mapStateToProps, {
-            // setFollowingProcess,
             getUsersFromServer,
             changePage,
             setUnFollow,
@@ -90,13 +87,3 @@ export default React.memo(
         }),
         // WithAuthRedirect
     )(UsersContainer))
-
-
-/*
-WithAuthRedirect(connect(mapStateToProps, {
-    // setFollowingProcess,
-    getUsers,
-    changePage,
-    setUnFollow,
-    setFollow
-})(UsersContainer));*/

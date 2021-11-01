@@ -1,9 +1,8 @@
-import {DispatchTypes} from "./redux-store";
-import dimych from "./avatars/dimych.jpg";
-import eugen from "./avatars/eugen.jpeg";
-import margo from "./avatars/margo.jpg";
-import natali from "./avatars/natali.jpg";
-import bro from "./avatars/bro.jpg";
+import dimych from './avatars/dimych.jpg';
+import eugen from './avatars/eugen.jpeg';
+import margo from './avatars/margo.jpg';
+import natali from './avatars/natali.jpg';
+import bro from './avatars/bro.jpg';
 
 export type DialogType = {
     id: string
@@ -19,9 +18,11 @@ export type MessageType = {
     message: string
 }
 
-const ADD_MESSAGE = "ADD-MESSAGE"
+const ADD_MESSAGE = 'DIALOGS_REDUCER/ADD-MESSAGE'
 
-export const addMessageAC = (newMessage: string) => ({type: ADD_MESSAGE, newMessage}) as const
+export const addMessageAC = (newMessage: string) => ({type: ADD_MESSAGE, newMessage} as const)
+
+export type DialogsReducerActionsTypes = ReturnType<typeof addMessageAC>
 
 let initialState: DialogsPageType = {
     dialogs: [{id: '1', name: 'Dimych', avatar: dimych},
@@ -35,7 +36,7 @@ let initialState: DialogsPageType = {
         {id: 4, message: 'Super! Hope you too!'}]
 }
 
-const dialogsReducer = (state: DialogsPageType = initialState, action: DispatchTypes): DialogsPageType => {
+const dialogsReducer = (state = initialState, action: DialogsReducerActionsTypes): DialogsPageType => {
     switch (action.type) {
 
         case ADD_MESSAGE:

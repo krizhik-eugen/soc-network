@@ -7,7 +7,7 @@ const INITIALIZING_COMPLETED = 'APP_REDUCER/INITIALIZING_COMPLETED'
 
 const setInitializingCompleted = () => ({type: INITIALIZING_COMPLETED} as const)
 
-export type appReducerActionsTypes = ReturnType<typeof setInitializingCompleted>
+export type AppReducerActionsTypes = ReturnType<typeof setInitializingCompleted>
 
 export const appInitializing = (): ThunkAction<void, AppStateType, unknown, DispatchTypes> => (dispatch: ThunkDispatch<AppStateType, unknown, DispatchTypes>) => {
     let promise1 = dispatch(getMyAuth())
@@ -26,7 +26,7 @@ let initialState: InitialStateType = {
     isInitialized: false
 }
 
-const appReducer = (state = initialState, action: appReducerActionsTypes): InitialStateType => {
+const appReducer = (state = initialState, action: AppReducerActionsTypes): InitialStateType => {
     switch (action.type) {
         case INITIALIZING_COMPLETED:
             return {

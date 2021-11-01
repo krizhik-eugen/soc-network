@@ -70,5 +70,4 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-
 export default React.memo(connect(mapStateToProps, {login})(Login))

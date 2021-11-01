@@ -6,6 +6,8 @@ import {AppStateType} from '../../redux/redux-store';
 import {compose, Dispatch} from 'redux';
 import {MessageType} from './Message/Message';
 import {WithAuthRedirect} from '../../hoc/WithAuthRedirect';
+import {reset} from 'redux-form';
+import {getDialogs, getMessages} from './DialogsSelectors';
 
 type MapStateToPropsType = {
     dialogs: Array<DialogType>
@@ -20,8 +22,8 @@ export type DialogsPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        dialogs: state.dialogsPage.dialogs,
-        messages: state.dialogsPage.messages,
+        dialogs: getDialogs(state),
+        messages: getMessages(state),
         isAuth: state.auth.isAuth
     }
 }
@@ -29,6 +31,7 @@ let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
         addMessage: (newMessage: string) => {
             dispatch(addMessageAC(newMessage))
+            dispatch(reset('newMessage'))
         }
     }
 }

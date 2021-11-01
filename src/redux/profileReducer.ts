@@ -1,5 +1,4 @@
 import {Dispatch} from 'redux';
-import {DispatchTypes} from './redux-store';
 import {getProfileResponseType, profileAPI, usersAPI} from '../api/api';
 
 export type PostType = {
@@ -16,17 +15,23 @@ export type ProfilePageType = {
     status: string
 }
 
+const ADD_POST = 'PROFILE_REDUCER/ADD-POST'
+const DELETE_POST = 'PROFILE_REDUCER/DELETE-POST'
+const SET_USER_PROFILE = 'PROFILE_REDUCER/SET-USER-PROFILE'
+const SET_STATUS = 'PROFILE_REDUCER/SET-STATUS'
+const UPDATE_STATUS = 'PROFILE_REDUCER/UPDATE-STATUS'
 
-const ADD_POST = 'ADD-POST'
-const DELETE_POST = 'DELETE-POST'
-const SET_USER_PROFILE = 'SET-USER-PROFILE'
-const SET_STATUS = 'SET-STATUS'
-const UPDATE_STATUS = 'UPDATE-STATUS'
-export const addPostAC = (newPost: string) => ({type: ADD_POST, newPost}) as const
-export const deletePostAC = (postID: number) => ({type: DELETE_POST, postID}) as const
-export const setUserProfile = (profile: UserProfileType) => ({type: SET_USER_PROFILE, profile: profile}) as const
-export const setStatus = (status: string) => ({type: SET_STATUS, status}) as const
-export const updateStatus = (status: string) => ({type: UPDATE_STATUS, status}) as const
+export const addPostAC = (newPost: string) => ({type: ADD_POST, newPost} as const)
+export const deletePostAC = (postID: number) => ({type: DELETE_POST, postID} as const)
+export const setUserProfile = (profile: UserProfileType) => ({type: SET_USER_PROFILE, profile: profile} as const)
+export const setStatus = (status: string) => ({type: SET_STATUS, status} as const)
+export const updateStatus = (status: string) => ({type: UPDATE_STATUS, status} as const)
+
+export type ProfileReducerActionsTypes = ReturnType<typeof addPostAC>
+    | ReturnType<typeof deletePostAC>
+    | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setStatus>
+    | ReturnType<typeof updateStatus>
 
 export const getUserProfileById = (userId: string) => (dispatch: Dispatch) => {
     usersAPI.getProfile(userId)
@@ -49,7 +54,6 @@ export const updateUserStatus = (status: string) => (dispatch: Dispatch) => {
         })
 }
 
-
 let initialState: ProfilePageType = {
     posts: [{id: 1, message: 'Hello', likeCount: 15},
         {id: 2, message: 'Hey', likeCount: 15},
@@ -59,7 +63,7 @@ let initialState: ProfilePageType = {
     status: ''
 }
 
-const profileReducer = (state: ProfilePageType = initialState, action: DispatchTypes): ProfilePageType => {
+const profileReducer = (state: ProfilePageType = initialState, action: ProfileReducerActionsTypes): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
             return {
@@ -68,17 +72,13 @@ const profileReducer = (state: ProfilePageType = initialState, action: DispatchT
             };
         case DELETE_POST:
             return {
-                ...state, posts: state.posts.filter(p=> p.id !== action.postID)
+                ...state, posts: state.posts.filter(p => p.id !== action.postID)
             }
         case SET_USER_PROFILE:
             return {
                 ...state, profile: action.profile
             };
         case SET_STATUS:
-            return {
-                ...state,
-                status: action.status
-            }
         case UPDATE_STATUS:
             return {
                 ...state,

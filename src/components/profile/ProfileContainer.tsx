@@ -5,6 +5,7 @@ import {UserProfileType, getUserProfileById, getUserStatusById, updateUserStatus
 import {AppStateType} from '../../redux/redux-store';
 import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
 import {compose} from 'redux';
+import {getProfile, getStatus} from './ProfileSelectors';
 
 class ProfileContainer extends React.PureComponent <ProfilePagePropsType> {
     componentDidMount() {
@@ -55,8 +56,8 @@ type ParamsType = {
 type ProfilePagePropsType = RouteComponentProps<ParamsType> & OwnProfilePagePropsType
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
-    profile: state.profilePage.profile,
-    status: state.profilePage.status,
+    profile: getProfile(state),
+    status: getStatus(state),
     authorizedUserId: state.auth.id,
     isAuth: state.auth.isAuth
 });

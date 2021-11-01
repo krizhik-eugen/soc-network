@@ -7,7 +7,7 @@ import {stopSubmit} from 'redux-form';
 const SET_USER_DATA = 'AUTH_REDUCER/SET-USERS-DATA'
 
 const setAuthUsersData = (id: number | null, login: string | null, email: string | null, isAuth: boolean) =>
-    ({type: SET_USER_DATA, payload: {id, login, email, isAuth}}) as const
+    ({type: SET_USER_DATA, payload: {id, login, email, isAuth}} as const)
 
 export type AuthReducerActionsTypes = ReturnType<typeof setAuthUsersData>
 
