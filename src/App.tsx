@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {Navbar} from './components/navbar/Navbar';
-import {Route} from 'react-router-dom';
+import {BrowserRouter, Route} from 'react-router-dom';
 import {Settings} from './components/settings/Settings';
 import {Music} from './components/music/Music';
 import {News} from './components/news/News';
@@ -11,8 +11,8 @@ import UsersContainer from './components/users/UsersContainer';
 import ProfileContainer from './components/profile/ProfileContainer';
 import HeaderContainer from './components/header/HeaderContainer';
 import Login from "./components/login/login";
-import { connect } from 'react-redux';
-import {AppStateType} from "./redux/redux-store";
+import {connect, Provider} from 'react-redux';
+import {AppStateType, store} from './redux/redux-store';
 import {appInitializing} from "./redux/appReducer";
 import {Preloader} from "./components/common/preloader/Preloader";
 
@@ -59,4 +59,16 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 
 }
 
-export default React.memo(connect(mapStateToProps, {appInitializing})(App))
+const AppContainer = React.memo(connect(mapStateToProps, {appInitializing})(App))
+
+const MainApp = () => {
+    return (
+        <BrowserRouter>
+            <Provider store={store}>
+                <AppContainer/>
+            </Provider>
+        </BrowserRouter>
+    )
+}
+
+export default MainApp

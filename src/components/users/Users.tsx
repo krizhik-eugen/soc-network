@@ -18,7 +18,7 @@ export const Users = React.memo((props: UserPropsType) => {
 
     return (
         <div className={''}>
-            <Paginator usersTotalCount={props.usersTotalCount} pageSize={props.pageSize}
+            <Paginator usersItemsCount={props.usersTotalCount} pageSize={props.pageSize}
                        onChangePageHandler={props.onChangePageHandler} currentPage={props.currentPage}/>
             {
                 props.users.map(u => <User user={u} setUnFollow={props.setUnFollow} setFollow={props.setFollow}
