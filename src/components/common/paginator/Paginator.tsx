@@ -11,7 +11,7 @@ type UserPropsType = {
 
 export const Paginator = React.memo((props: UserPropsType) => {
 
-    let [portionNumber, setPortionNumber] = useState<number>(1)
+    let [portionNumber, setPortionNumber] = useState<number>(Math.ceil(props.currentPage/props.portionSize))
     console.log(portionNumber)
 
     let pagesCount = Math.ceil(props.itemsCount / props.pageSize);

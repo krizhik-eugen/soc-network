@@ -38,7 +38,6 @@ class App extends React.PureComponent<AppPropsType> {
                     <Route /*exact*/ path='/music' render={() => <Music/>}/>
                     <Route /*exact*/ path='/settings' render={() => <Settings/>}/>
                 </div>
-                <FriendsContainer/>
             </div>
         );
     }

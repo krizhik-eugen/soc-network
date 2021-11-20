@@ -15,7 +15,6 @@ type UserPropsType = {
 }
 
 export const Users = React.memo((props: UserPropsType) => {
-
     return (
         <div className={''}>
             <Paginator itemsCount={props.usersTotalCount} pageSize={props.pageSize}
