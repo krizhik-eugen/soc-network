@@ -1,10 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from 'redux-form';
 import {maxLength, requiredField} from '../../utils/validators/validators';
-import {Input} from "../common/formControls/FormControls";
-import {login} from "../../redux/authReducer";
-import {AppStateType} from "../../redux/redux-store";
+import {Input} from '../common/formControls/FormControls';
+import {login} from '../../redux/authReducer';
+import {AppStateType} from '../../redux/redux-store';
 import {Redirect} from 'react-router-dom';
 import styles from './../common/formControls/FormControls.module.css'
 
@@ -19,7 +19,7 @@ const LoginForm = (props: InjectedFormProps<FormDataType>) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field placeholder={'login'} component={Input} name={'email'}
+                <Field placeholder={'login'} component={Input} name={'name'}
                        validate={[requiredField, maxLength30]}/>
             </div>
             <div>
@@ -27,7 +27,7 @@ const LoginForm = (props: InjectedFormProps<FormDataType>) => {
                        validate={[requiredField, maxLength30]}/>
             </div>
             <div>
-                <Field type={"checkbox"} component={Input} name={'rememberMe'}/> remember me
+                <Field type={'checkbox'} component={Input} name={'rememberMe'}/> remember me
             </div>
             {props.error && <div className={styles.formError}>{props.error}</div>}
 
@@ -38,7 +38,7 @@ const LoginForm = (props: InjectedFormProps<FormDataType>) => {
     )
 }
 
-const ReduxLoginForm = reduxForm<FormDataType>({form: "login"})(LoginForm)
+const ReduxLoginForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
 
 const Login = React.memo((props: LoginPropsType) => {
     const onSubmit = (formData: FormDataType) => {
