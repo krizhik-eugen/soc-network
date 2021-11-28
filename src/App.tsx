@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import './App.css';
 import {Navbar} from './components/navbar/Navbar';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, HashRouter, Route} from 'react-router-dom';
 import {Settings} from './components/settings/Settings';
 import {Music} from './components/music/Music';
 import {News} from './components/news/News';
@@ -66,11 +66,11 @@ const AppContainer = React.memo(connect(mapStateToProps, {appInitializing})(App)
 
 const MainApp = () => {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Provider store={store}>
                 <AppContainer/>
             </Provider>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 
