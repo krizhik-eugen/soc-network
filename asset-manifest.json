@@ -1,0 +1,36 @@
+{
+  "files": {
+    "main.css": "/socNetwork/static/css/main.e9bc8d4e.chunk.css",
+    "main.js": "/socNetwork/static/js/main.dfb4c5c2.chunk.js",
+    "main.js.map": "/socNetwork/static/js/main.dfb4c5c2.chunk.js.map",
+    "runtime-main.js": "/socNetwork/static/js/runtime-main.c0bc04a4.js",
+    "runtime-main.js.map": "/socNetwork/static/js/runtime-main.c0bc04a4.js.map",
+    "static/js/2.d3e4b0b4.chunk.js": "/socNetwork/static/js/2.d3e4b0b4.chunk.js",
+    "static/js/2.d3e4b0b4.chunk.js.map": "/socNetwork/static/js/2.d3e4b0b4.chunk.js.map",
+    "static/css/3.44e70500.chunk.css": "/socNetwork/static/css/3.44e70500.chunk.css",
+    "static/js/3.c5610ecb.chunk.js": "/socNetwork/static/js/3.c5610ecb.chunk.js",
+    "static/js/3.c5610ecb.chunk.js.map": "/socNetwork/static/js/3.c5610ecb.chunk.js.map",
+    "static/js/4.18828d1f.chunk.js": "/socNetwork/static/js/4.18828d1f.chunk.js",
+    "static/js/4.18828d1f.chunk.js.map": "/socNetwork/static/js/4.18828d1f.chunk.js.map",
+    "index.html": "/socNetwork/index.html",
+    "static/css/3.44e70500.chunk.css.map": "/socNetwork/static/css/3.44e70500.chunk.css.map",
+    "static/css/main.e9bc8d4e.chunk.css.map": "/socNetwork/static/css/main.e9bc8d4e.chunk.css.map",
+    "static/js/2.d3e4b0b4.chunk.js.LICENSE.txt": "/socNetwork/static/js/2.d3e4b0b4.chunk.js.LICENSE.txt",
+    "static/media/bro.47070a78.jpg": "/socNetwork/static/media/bro.47070a78.jpg",
+    "static/media/defaultAva.816d7d33.png": "/socNetwork/static/media/defaultAva.816d7d33.png",
+    "static/media/dimych.59681281.jpg": "/socNetwork/static/media/dimych.59681281.jpg",
+    "static/media/eugen.8359a3de.jpeg": "/socNetwork/static/media/eugen.8359a3de.jpeg",
+    "static/media/john.b7c51776.jpg": "/socNetwork/static/media/john.b7c51776.jpg",
+    "static/media/kuka.32539c50.jpg": "/socNetwork/static/media/kuka.32539c50.jpg",
+    "static/media/lika.81313dde.jpg": "/socNetwork/static/media/lika.81313dde.jpg",
+    "static/media/margo.5f893e8f.jpg": "/socNetwork/static/media/margo.5f893e8f.jpg",
+    "static/media/natali.484e6ebe.jpg": "/socNetwork/static/media/natali.484e6ebe.jpg",
+    "static/media/preloader.b98a8c76.svg": "/socNetwork/static/media/preloader.b98a8c76.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c0bc04a4.js",
+    "static/js/2.d3e4b0b4.chunk.js",
+    "static/css/main.e9bc8d4e.chunk.css",
+    "static/js/main.dfb4c5c2.chunk.js"
+  ]
+}
