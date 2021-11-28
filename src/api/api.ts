@@ -13,7 +13,7 @@ type BaseResponseType<T = {}> = {
 }
 
 export type getProfileResponseType = {
-    aboutMe: string
+    aboutMe: string | null
     contacts: {
         facebook: string | null
         website: string | null
@@ -27,7 +27,7 @@ export type getProfileResponseType = {
     lookingForAJob: boolean
     lookingForAJobDescription: string | null
     fullName: string
-    userId: number
+    userId: number | null
     photos: {
         small: string
         large: string
@@ -88,6 +88,11 @@ export const profileAPI = {
     },
     updateStatus(status: string) {
         return instance.put<BaseResponseType>('profile/status', {status})
+    },
+    uploadPhoto(photoFile: File) {
+        const formData = new FormData()
+        formData.append('image', photoFile)
+        return instance.put<BaseResponseType<{ small: string, large: string }>>('profile/photo', formData, {headers: {'Content-type': 'multipart/form-data'}})
     }
 }
 
