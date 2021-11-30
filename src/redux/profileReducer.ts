@@ -1,5 +1,8 @@
 import {Dispatch} from 'redux';
 import {getProfileResponseType, profileAPI, usersAPI} from '../api/api';
+import {AppStateType} from './redux-store';
+import {stopSubmit} from 'redux-form';
+import {Profile} from '../components/profile/Profile';
 
 export type PostType = {
     id?: number
@@ -65,6 +68,19 @@ export const setUserPhotos = (photo: File) => (dispatch: Dispatch) => {
             }
         })
 }
+export const safeProfile = (profileData: any): any => async (dispatch: any, getState: () => AppStateType) => {
+    const userId = getState().auth.id
+    const response = await profileAPI.safeProfile(profileData)
+    if (response.data.resultCode === 0) {
+        if (userId) {
+            dispatch(getUserProfileById(userId.toString()))
+        }
+    } else {
+        console.log(response)
+        dispatch(stopSubmit('profileData', {_error: response.data.messages[0]}))
+        return Promise.reject(response.data.messages[0])
+    }
+}
 
 
 let initialState: ProfilePageType = {
@@ -75,14 +91,14 @@ let initialState: ProfilePageType = {
     profile: {
         aboutMe: null,
         contacts: {
-            facebook: null,
-            website: null,
-            vk: null,
-            twitter: null,
-            instagram: null,
-            youtube: null,
-            github: null,
-            mainLink: null,
+            facebook: '',
+            website: '',
+            vk: '',
+            twitter: '',
+            instagram: '',
+            youtube: '',
+            github: '',
+            mainLink: '',
         },
         lookingForAJob: false,
         lookingForAJobDescription: null,

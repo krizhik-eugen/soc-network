@@ -1,8 +1,10 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
+import {UserProfileType} from '../../../redux/profileReducer';
 
 type ProfileStatusPropsType = {
     status: string
     updateUserStatus: (status: string) => void
+    profile: UserProfileType
 }
 
 export const ProfileStatusWithHooks = React.memo((props: ProfileStatusPropsType) => {

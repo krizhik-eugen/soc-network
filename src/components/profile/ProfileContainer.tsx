@@ -1,11 +1,19 @@
 import React from 'react';
 import {Profile} from './Profile';
 import {connect} from 'react-redux';
-import {UserProfileType, getUserProfileById, getUserStatusById, updateUserStatus, setUserPhotos} from '../../redux/profileReducer';
+import {
+    UserProfileType,
+    getUserProfileById,
+    getUserStatusById,
+    updateUserStatus,
+    setUserPhotos,
+    safeProfile
+} from '../../redux/profileReducer';
 import {AppStateType} from '../../redux/redux-store';
 import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
 import {compose} from 'redux';
 import {getProfile, getStatus} from './ProfileSelectors';
+import {UpdateProfileDataType} from '../../api/api';
 
 class ProfileContainer extends React.PureComponent <ProfilePagePropsType> {
 
@@ -42,7 +50,8 @@ class ProfileContainer extends React.PureComponent <ProfilePagePropsType> {
                              status={this.props.status}
                              isOwner={!this.props.match.params.userId}
                              updateUserStatus={this.props.updateUserStatus}
-                             setUserPhotos={this.props.setUserPhotos}/>
+                             setUserPhotos={this.props.setUserPhotos}
+                             safeProfile={this.props.safeProfile}/>
                     :
                     <Redirect to={'/Login'}/>
                 }
@@ -63,6 +72,7 @@ type MapDispatchToPropsType = {
     getUserStatusById: (userId: string) => void
     updateUserStatus: (status: string) => void
     setUserPhotos: (file: File) => void
+    safeProfile: (profileData: UpdateProfileDataType) => Promise<string>
 }
 type OwnProfilePagePropsType = MapStateToPropsType & MapDispatchToPropsType
 type ParamsType = {
@@ -80,7 +90,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
 
 export default React.memo(
     compose<React.ComponentType>(
-        connect(mapStateToProps, {getUserProfileById, getUserStatusById, updateUserStatus, setUserPhotos}),
+        connect(mapStateToProps, {getUserProfileById, getUserStatusById, updateUserStatus, setUserPhotos, safeProfile}),
         withRouter,
         // WithAuthRedirect
     )(ProfileContainer))

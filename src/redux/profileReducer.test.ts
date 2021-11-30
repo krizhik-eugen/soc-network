@@ -1,11 +1,31 @@
-import profileReducer, {addPostAC, deletePostAC, ProfilePageType} from './profileReducer';
+import profileReducer, {addPostAC, deletePostAC, ProfilePageType, UserProfileType} from './profileReducer';
 
 let initialState: ProfilePageType = {
     posts: [{id: 1, message: 'Hello', likeCount: 15},
         {id: 2, message: 'Hey', likeCount: 15},
         {id: 3, message: 'Ho', likeCount: 15},
         {id: 4, message: 'He-he', likeCount: 4}],
-    profile: null,
+    profile: {
+        aboutMe: null,
+        contacts: {
+            facebook: '',
+            website: '',
+            vk: '',
+            twitter: '',
+            instagram: '',
+            youtube: '',
+            github: '',
+            mainLink: '',
+        },
+        lookingForAJob: false,
+        lookingForAJobDescription: null,
+        fullName: '',
+        userId: null,
+        photos: {
+            small: '',
+            large: ''
+        }
+    },
     status: ''
 }
 

@@ -15,14 +15,14 @@ type BaseResponseType<T = {}> = {
 export type getProfileResponseType = {
     aboutMe: string | null
     contacts: {
-        facebook: string | null
-        website: string | null
-        vk: string | null
-        twitter: string | null
-        instagram: string | null
-        youtube: string | null
-        github: string | null
-        mainLink: string | null
+        facebook: string
+        website: string
+        vk: string
+        twitter: string
+        instagram: string
+        youtube: string
+        github: string
+        mainLink: string
     }
     lookingForAJob: boolean
     lookingForAJobDescription: string | null
@@ -34,6 +34,22 @@ export type getProfileResponseType = {
     }
 }
 
+export type UpdateProfileDataType = {
+    lookingForAJob?: boolean
+    lookingForAJobDescription?: string | null
+    fullName?: string
+    userId?: number | null
+    contacts?: {
+        facebook?: string
+        website?: string
+        vk?: string
+        twitter?: string
+        instagram?: string
+        youtube?: string
+        github?: string
+        mainLink?: string
+    }
+}
 type AuthMeResponseType = {
     data: {
         id: number
@@ -93,6 +109,9 @@ export const profileAPI = {
         const formData = new FormData()
         formData.append('image', photoFile)
         return instance.put<BaseResponseType<{ small: string, large: string }>>('profile/photo', formData, {headers: {'Content-type': 'multipart/form-data'}})
+    },
+    safeProfile(profileData: UpdateProfileDataType) {
+        return instance.put('profile', profileData)
     }
 }
 
