@@ -121,11 +121,12 @@ export const authAPI = {
             `auth/me`
         );
     },
-    logIn(email: string, password: string, rememberMe: boolean) {
+    logIn(email: string, password: string, rememberMe: boolean, captcha: string | null = null) {
         return instance.post<BaseResponseType<{ userId: string }>>(`auth/login`, {
             email,
             password,
-            rememberMe
+            rememberMe,
+            captcha
         })
     },
     logout() {
@@ -133,3 +134,11 @@ export const authAPI = {
     }
 }
 
+
+export const securityAPI = {
+    getCaptchaUrl() {
+        return instance.get<{url: string}>(
+            `/security/get-captcha-url`
+        );
+    }
+}

@@ -12,14 +12,17 @@ export type FormDataType = {
     email: string
     password: string
     rememberMe: boolean
+    captcha: string
 }
 
+type CaptchaType = { captchaUrl: string | null }
+
 const maxLength30 = maxLength(30)
-const LoginForm = (props: InjectedFormProps<FormDataType>) => {
+const LoginForm = (props: InjectedFormProps<FormDataType, CaptchaType> & CaptchaType) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field placeholder={'login'} component={Input} name={'name'}
+                <Field placeholder={'login'} component={Input} name={'email'}
                        validate={[requiredField, maxLength30]}/>
             </div>
             <div>
@@ -29,6 +32,13 @@ const LoginForm = (props: InjectedFormProps<FormDataType>) => {
             <div>
                 <Field type={'checkbox'} component={Input} name={'rememberMe'}/> remember me
             </div>
+
+            {props.captchaUrl && <img src={props.captchaUrl}/>}
+            {props.captchaUrl &&
+            <div>
+                <Field placeholder={'captcha'} component={Input} name={'captcha'}
+                       validate={[requiredField, maxLength30]}/>
+            </div>}
             {props.error && <div className={styles.formError}>{props.error}</div>}
 
             <div>
@@ -38,11 +48,12 @@ const LoginForm = (props: InjectedFormProps<FormDataType>) => {
     )
 }
 
-const ReduxLoginForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
+const ReduxLoginForm = reduxForm<FormDataType, CaptchaType>({form: 'login'})(LoginForm)
 
 const Login = React.memo((props: LoginPropsType) => {
     const onSubmit = (formData: FormDataType) => {
-        props.login(formData.email, formData.password, formData.rememberMe)
+        console.log(formData)
+        props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
     if (props.isAuth) {
         return <Redirect to={'/profile'}/>
@@ -51,23 +62,25 @@ const Login = React.memo((props: LoginPropsType) => {
     return (
         <div>
             <h1>Login</h1>
-            <ReduxLoginForm onSubmit={onSubmit}/>
+            <ReduxLoginForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
         </div>
     )
 })
 
 type MapStateToPropsType = {
     isAuth: boolean
+    captchaUrl: string | null
 }
 type MapDispatchPropsType = {
-    login: (email: string, password: string, rememberMe: boolean) => void
+    login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
 }
 type LoginPropsType = MapDispatchPropsType & MapStateToPropsType
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        captchaUrl: state.auth.captchaUrl
     }
 }
 
-export default React.memo(connect(mapStateToProps, {login})(Login))
+export default (connect(mapStateToProps, {login})(Login))

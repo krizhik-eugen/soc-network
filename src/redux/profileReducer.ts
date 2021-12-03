@@ -1,8 +1,9 @@
 import {Dispatch} from 'redux';
-import {getProfileResponseType, profileAPI, usersAPI} from '../api/api';
-import {AppStateType} from './redux-store';
+import {getProfileResponseType, profileAPI, UpdateProfileDataType, usersAPI} from '../api/api';
+import {AppStateType, DispatchTypes} from './redux-store';
 import {stopSubmit} from 'redux-form';
 import {Profile} from '../components/profile/Profile';
+import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 
 export type PostType = {
     id?: number
@@ -68,7 +69,7 @@ export const setUserPhotos = (photo: File) => (dispatch: Dispatch) => {
             }
         })
 }
-export const safeProfile = (profileData: any): any => async (dispatch: any, getState: () => AppStateType) => {
+export const safeProfile = (profileData: UpdateProfileDataType): ThunkAction<void, AppStateType, unknown, DispatchTypes> => async (dispatch: ThunkDispatch<AppStateType, unknown, DispatchTypes>, getState: () => AppStateType) => {
     const userId = getState().auth.id
     const response = await profileAPI.safeProfile(profileData)
     if (response.data.resultCode === 0) {
