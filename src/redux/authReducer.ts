@@ -4,6 +4,10 @@ import {authAPI, securityAPI} from '../api/api';
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {stopSubmit} from 'redux-form';
 
+
+// Обработка ошибок!!!
+
+
 const SET_USER_DATA = 'AUTH_REDUCER/SET-USERS-DATA'
 const GET_CAPTCHA_URL = 'AUTH_REDUCER/GET-CAPTCHA-URL'
 

@@ -2,6 +2,9 @@ import john from './avatars/john.jpg';
 import lika from './avatars/lika.jpg';
 import kuka from './avatars/kuka.jpg';
 
+// Обработка ошибок!!!
+
+
 export type FriendsType = {
     id: number
     name: string

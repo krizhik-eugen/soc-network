@@ -5,6 +5,9 @@ import {stopSubmit} from 'redux-form';
 import {Profile} from '../components/profile/Profile';
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 
+// Обработка ошибок!!!
+
+
 export type PostType = {
     id?: number
     message: string

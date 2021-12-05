@@ -53,12 +53,6 @@ export const ProfileInfo = React.memo((props: ProfileInfoPropsType) => {
                 <ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus} profile={props.profile}/>
                 {editMode ? <ReduxProfileDataForm onSubmit={onSubmit} initialValues={props.profile} profile={props.profile}/> :
                     <ProfileData profile={props.profile} isOwner={props.isOwner} enableEditMode={setEditMode}/>}
-                {/*<div>Site: {props.profile.contacts.mainLink}</div>
-                <div>Facebook: {props.profile.contacts.facebook}</div>
-                <div>Instagram: {props.profile.contacts.instagram}</div>
-                <div>GitHub: {props.profile.contacts.github}</div>
-                {props.profile.lookingForAJob && <div>Looking for a job: {props.profile.lookingForAJob}</div>}
-                {props.profile.lookingForAJobDescription && <div>Looking for a job: {props.profile.lookingForAJobDescription}</div>}*/}
             </div>
         </div>
     );

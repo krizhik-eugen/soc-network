@@ -4,6 +4,9 @@ import margo from './avatars/margo.jpg';
 import natali from './avatars/natali.jpg';
 import bro from './avatars/bro.jpg';
 
+// Обработка ошибок!!!
+
+
 export type DialogType = {
     id: string
     name: string

@@ -3,6 +3,8 @@ import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {getMyAuth} from './authReducer';
 
 
+// Обработка ошибок!!!
+
 const INITIALIZING_COMPLETED = 'APP_REDUCER/INITIALIZING_COMPLETED'
 
 const setInitializingCompleted = () => ({type: INITIALIZING_COMPLETED} as const)

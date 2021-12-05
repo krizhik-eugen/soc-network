@@ -2,6 +2,8 @@ import {DispatchTypes} from './redux-store';
 import {usersAPI} from '../api/api';
 import {Dispatch} from 'redux';
 
+// Обработка ошибок!!!
+
 export type LocationType = {
     city: string
     country: string
