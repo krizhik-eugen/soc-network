@@ -85,5 +85,5 @@ export default React.memo(
             setUnFollow,
             setFollow
         }),
-        // WithAuthRedirect
+        WithAuthRedirect
     )(UsersContainer))
