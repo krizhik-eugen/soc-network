@@ -15,6 +15,7 @@ import {AppStateType, store} from './redux/redux-store';
 import {appInitializing} from './redux/appReducer';
 import {Preloader} from './components/common/preloader/Preloader';
 import {ProfileStatusWithHooks} from './components/profile/profileinfo/ProfileStatusWithHooks';
+import ChatPage from './components/pages/ChatPage';
 
 
 
@@ -58,6 +59,7 @@ class App extends React.PureComponent<AppPropsType> {
                         <Route /*exact*/ path="/news" render={() => <News/>}/>
                         <Route /*exact*/ path="/music" render={() => <Music/>}/>
                         <Route /*exact*/ path="/settings" render={() => <Settings/>}/>
+                        <Route /*exact*/ path="/chat" render={() => <ChatPage/>}/>
                         <Route /*exact*/ path="*" render={() => <div>404 not found</div>}/>
                     </Switch>
                 </div>

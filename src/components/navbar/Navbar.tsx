@@ -23,6 +23,9 @@ export const Navbar = () => {
                 <NavLink to='/music' activeClassName={styles.active}>Music</NavLink>
             </div>
             <div className={styles.item}>
+                <NavLink to='/chat' activeClassName={styles.active}>Chat</NavLink>
+            </div>
+            <div className={styles.item}>
                 <NavLink to='/settings' activeClassName={styles.active}>Settings</NavLink>
                 <FriendsContainer />
             </div>
