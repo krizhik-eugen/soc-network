@@ -11,6 +11,8 @@ import usersReducer, {
 } from './usersReducer';
 import authReducer, {AuthReducerActionsTypes} from './authReducer';
 import appReducer, {AppReducerActionsTypes} from './appReducer';
+import {chatAPI} from '../api/chat-api';
+import chatReducer, {ChatReducerActionsTypes} from './chatReducer';
 
 export type DispatchTypes =
     | DialogsReducerActionsTypes
@@ -19,6 +21,7 @@ export type DispatchTypes =
     | AppReducerActionsTypes
     | SideBarReducerActionsTypes
     | UserReducerActionsTypes
+    | ChatReducerActionsTypes
 
 export const rootReducer = combineReducers(
     {
@@ -28,7 +31,8 @@ export const rootReducer = combineReducers(
         usersPage: usersReducer,
         auth: authReducer,
         form: formReducer,
-        app: appReducer
+        app: appReducer,
+        chat: chatReducer
     }
 );
 
